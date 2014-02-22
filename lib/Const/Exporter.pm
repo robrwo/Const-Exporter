@@ -95,15 +95,14 @@ sub import {
 
                     if ( $sigil ) {
 
-                        my $name = $sigil . $caller . '::' . substr($symbol, 1);
-
                         $stash->add_symbol($symbol, $value,);
 
                         Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
 
                     } else {
 
-                        $stash->add_symbol( _normalize_symbol($symbol), sub { $value });
+                        $stash->add_symbol( _normalize_symbol($symbol),
+                                            sub { $value });
 
                     }
 
