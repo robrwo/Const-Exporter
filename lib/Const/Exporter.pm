@@ -103,11 +103,15 @@ sub import {
 
                     if ($stash->has_symbol($symbol)) {
 
-                        if ($SIGIL_TYPE{$sigil} eq
-                            reftype($stash->get_symbol($symbol))) {
+                        my $ref = $stash->get_symbol($symbol);
+
+                        if ($SIGIL_TYPE{$sigil} eq reftype($ref)) {
+
+                            Const::Fast::_make_readonly( $ref => 1 );
 
                             push @{ $export_tags{$tag} }, $symbol;
                             $symbols{$symbol} = 1;
+
                             next;
 
                         } else {
@@ -121,6 +125,8 @@ sub import {
                     my $value = shift @{$defs};
 
                     if (ref($value) eq 'SCALAR') {
+
+                        # TODO: when symbol isn't available
 
                         $value = $stash->get_symbol( _normalize_symbol ${$value} );
 
