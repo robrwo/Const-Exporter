@@ -11,7 +11,7 @@ license  'artistic2';
 perl_version 5.010;
 
 tests_recursive('t');
-tests_recursive('xt');
+# tests_recursive('xt');
 
 resources (
    homepage   => 'http://rrwo.tumblr.com',
@@ -25,7 +25,6 @@ configure_requires (
 );
 
 build_requires (
-   'Test::Most' => 0,
 );
 
 requires (
@@ -42,8 +41,10 @@ recommends (
     'Storable'           => 0,
 );
 
-# test_requires (
-# );
+test_requires (
+   'Test::Most' => 0,
+   'Test::Warnings' => 0,
+);
 
 install_as_cpan;
 auto_install;
