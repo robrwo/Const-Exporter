@@ -10,7 +10,6 @@ use version 0.77; our $VERSION = version->declare('v0.0.2');
 use Carp;
 use Const::Fast;
 use Exporter ();
-use Object::Signature ();
 use Package::Stash;
 use Scalar::Util qw/ reftype /;
 
