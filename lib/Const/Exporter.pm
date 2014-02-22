@@ -5,7 +5,7 @@ use v5.10.1;
 use strict;
 use warnings;
 
-use version 0.77; our $VERSION = version->declare('v0.0.2');
+use version 0.77; our $VERSION = version->declare('v0.0.3');
 
 use Carp;
 use Const::Fast;
@@ -54,7 +54,40 @@ sub import {
 
                 if (/^ARRAY$/) {
 
-                    # TODO: enum types
+                    my @enums  = @{$item};
+                    my $start  = shift @{$defs};
+
+                    my @values = (ref $start) ? @{ $start } : ( $start );
+
+                    my $value = 0;
+
+                    while (my $symbol = shift @enums) {
+
+                        croak "${symbol} already exists"
+                            if ($stash->has_symbol($symbol));
+
+                        $value = @values ? (shift @values) : ++$value;
+
+                        $symbol =~ /^(\W)/;
+                        if (my $sigil = $1) {
+
+                            $stash->add_symbol($symbol, $value);
+
+                            Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+                        } else {
+
+                            my $clone = $value;
+                            $stash->add_symbol( _normalize_symbol($symbol),
+                                                sub { $clone });
+
+
+                        }
+
+                        push @{ $export_tags{$tag} }, $symbol;
+                        $symbols{$symbol} = 1;
+
+
+                    }
 
                     next;
                 }
@@ -164,6 +197,12 @@ Define a constants module:
         'foo',                   # exports "foo" (same as from ":tag_a")
         'moo' => \ '$bar',       # exports "moo" (same value as "$bar")
         '$zoo',                  # exports "$zoo" (as defined above)
+     ],
+
+     enums => [
+
+       [qw/ goo gab gub /] => 0, # exports enumerated symbols, from 0..2
+
      ],
 
      default => [qw/ fo $bar /]; # exported by default
