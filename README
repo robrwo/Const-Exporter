@@ -25,6 +25,12 @@ SYNOPSIS
             '$zoo',                  # exports "$zoo" (as defined above)
          ],
 
+         enums => [
+
+           [qw/ goo gab gub /] => 0, # exports enumerated symbols, from 0..2
+
+         ],
+
          default => [qw/ fo $bar /]; # exported by default
 
     and use that module:
