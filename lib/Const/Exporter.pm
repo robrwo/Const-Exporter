@@ -5,7 +5,7 @@ use v5.10.1;
 use strict;
 use warnings;
 
-use version 0.77; our $VERSION = version->declare('v0.0.1');
+use version 0.77; our $VERSION = version->declare('v0.0.2');
 
 use Carp;
 use Const::Fast;
@@ -44,60 +44,79 @@ sub import {
 
     while ( my $tag = shift ) {
 
-        my $consts = shift;
+        my $defs = shift;
 
         croak "An array reference required for tag '${tag}'"
-            unless (ref $consts ) eq 'ARRAY';
+            unless (ref $defs ) eq 'ARRAY';
 
-        while (my $symbol = shift @{$consts} ) {
+        while (my $item = shift @{$defs} ) {
 
-            # TODO: if the symbol is an array ref, define enumerated
-            # types. If a hash ref, then...?
+            for( ref $item ) {
 
-            $export_tags{$tag} //= [ ];
+                if (/^ARRAY$/) {
 
-            $symbol =~ /^(\W)/;
-            my $sigil = $1;
+                    # TODO: enum types
 
-            if ($stash->has_symbol($symbol)) {
+                    next;
+                }
 
-                if ($SIGIL_TYPE{$sigil} eq reftype($stash->get_symbol($symbol))) {
+                if (/^$/) {
+
+                    my $symbol = $item;
+
+                    $symbol =~ /^(\W)/;
+                    my $sigil = $1;
+
+                    $export_tags{$tag} //= [ ];
+
+                    if ($stash->has_symbol($symbol)) {
+
+                        if ($SIGIL_TYPE{$sigil} eq
+                            reftype($stash->get_symbol($symbol))) {
+
+                            push @{ $export_tags{$tag} }, $symbol;
+                            $symbols{$symbol} = 1;
+                            next;
+
+                        } else {
+
+                            # TODO: warn about multiple symbols
+
+                        }
+
+                    }
+
+                    my $value = shift @{$defs};
+
+                    if (ref($value) eq 'SCALAR') {
+                        $value = _dereference $stash->get_symbol(
+                            _normalize_symbol ${$value} );
+                    }
+
+                    if ( $sigil ) {
+
+                        my $name = $sigil . $caller . '::' . substr($symbol, 1);
+
+                        $stash->add_symbol($symbol, $value,);
+
+                        Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+
+                    } else {
+
+                        $stash->add_symbol( _normalize_symbol($symbol), sub { $value });
+
+                    }
 
                     push @{ $export_tags{$tag} }, $symbol;
                     $symbols{$symbol} = 1;
+
                     next;
-
-                } else {
-
-                    # TODO: warn about multiple symbols
-
                 }
 
-            }
-
-            my $value = shift @{$consts};
-
-            if (ref($value) eq 'SCALAR') {
-                $value = _dereference $stash->get_symbol(
-                    _normalize_symbol ${$value} );
-            }
-
-            if ( $sigil ) {
-
-                my $name = $sigil . $caller . '::' . substr($symbol, 1);
-
-                $stash->add_symbol($symbol, $value,);
-
-                Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
-
-            } else {
-
-                $stash->add_symbol( _normalize_symbol($symbol), sub { $value });
+                croak "$_ is not supported";
 
             }
 
-            push @{ $export_tags{$tag} }, $symbol;
-            $symbols{$symbol} = 1;
 
         }
 
