@@ -88,8 +88,13 @@ sub import {
                     my $value = shift @{$defs};
 
                     if (ref($value) eq 'SCALAR') {
-                        $value = _dereference $stash->get_symbol(
-                            _normalize_symbol ${$value} );
+
+                        $value = $stash->get_symbol( _normalize_symbol ${$value} );
+
+                        $value = _dereference($value)
+                            if ((ref $value) eq 'CODE')
+                            || !$sigil; # code
+
                     }
 
                     if ( $sigil ) {
@@ -97,7 +102,6 @@ sub import {
                         $stash->add_symbol($symbol, $value,);
 
                         Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
-
                     } else {
 
                         $stash->add_symbol( _normalize_symbol($symbol),
@@ -110,7 +114,6 @@ sub import {
 
                     next;
                 }
-
                 croak "$_ is not supported";
 
             }
