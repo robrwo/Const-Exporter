@@ -58,4 +58,15 @@ is_deeply( [ aa0, aa1, aa2, aa3 ], [0..3], "enums (zero-based)" );
 is_deeply( [ ab1, ab2, ab3, ab4 ], [1, 3, 12, 13], "enums (indexed)");
 is_deeply( [ $ac1, $ac2, $ac3 ], [18, 12, 13], "enum scalars (indexed badly)");
 
+is_deeply( [sort @EXPORT], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 /], '@EXPORT');
+
+is_deeply( [sort @EXPORT_OK], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 /], '@EXPORT_OK');
+
+is_deeply( [sort keys %EXPORT_TAGS], [qw/ all default /], '%EXPORT_TAGS' );
+
+is_deeply( [sort @{$EXPORT_TAGS{default}}], [sort @EXPORT], '%EXPORT_TAGS{default}' );
+is_deeply( [sort @{$EXPORT_TAGS{all}}], [sort @EXPORT_OK], '%EXPORT_TAGS{all}' );
+
+
+
 done_testing;
