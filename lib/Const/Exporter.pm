@@ -14,57 +14,18 @@ use List::MoreUtils qw/ uniq /;
 use Package::Stash;
 use Scalar::Util qw/ reftype /;
 
-const my %SIGIL_TYPE => (
-    '$' => 'SCALAR',
-    '&' => 'CODE',
-    '@' => 'ARRAY',
-    '%' => 'HASH',
-);
-
-sub _get_sigil {
-    my ($symbol) = @_;
-    $symbol =~ /^(\W)/;
-    return $1 // '&';
-}
-
-sub _dereference {
-    my ($ref) = @_;
-    for(reftype $ref) {
-        return ${$ref} if /SCALAR/;
-        return &{$ref} if /CODE/;
-        return @{$ref} if /ARRAY/;
-        return %{$ref} if /HASH/;
-        croak "Unable to dereference $_";
-    }
-}
-
-sub _normalize_symbol {
-    my ($symbol) = @_;
-    $symbol = '&' . $symbol unless $symbol =~ /^\W/;
-    return $symbol;
-}
-
-sub _add_symbol {
-    my ($stash, $symbol, $value) = @_;
-
-    my $sigil = _get_sigil($symbol);
-    if ($sigil ne '&') {
-
-        $stash->add_symbol($symbol, $value);
-        Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
-
-    } else {
-
-         $stash->add_symbol( '&' . $symbol, sub { $value });
-
-    }
-}
-
 sub import {
     my $pkg  = shift;
 
     my ($caller) = caller;
     my $stash    = Package::Stash->new($caller);
+
+    const my %SIGIL_TYPE => (
+        '$' => 'SCALAR',
+        '&' => 'CODE',
+        '@' => 'ARRAY',
+        '%' => 'HASH',
+    );
 
     # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
     # don't yet exist.
@@ -89,6 +50,15 @@ sub import {
 
     $stash->add_symbol('&import', \&Exporter::import)
         unless ($stash->has_symbol('&import'));
+
+    my $add_symbol_to_exports = sub {
+        my ($symbol, $tag) = @_;
+
+        $export_tags->{$tag} //= [ ];
+
+        push @{ $export_tags->{$tag} }, $symbol;
+        push @{ $export_ok }, $symbol;
+    };
 
     while ( my $tag = shift ) {
 
@@ -121,11 +91,7 @@ sub import {
 
                         _add_symbol($stash, $symbol, $value);
 
-                        $export_tags->{$tag} //= [ ];
-
-                        push @{ $export_tags->{$tag} }, $symbol;
-                        push @{ $export_ok }, $symbol;
-
+                        $add_symbol_to_exports->($symbol, $tag);
 
                     }
 
@@ -141,8 +107,6 @@ sub import {
 
                     my $sigil = _get_sigil($symbol);
 
-                    $export_tags->{$tag} //= [ ];
-
                     if ($stash->has_symbol($norm)) {
 
                         my $ref = $stash->get_symbol($norm);
@@ -155,8 +119,7 @@ sub import {
                             Const::Fast::_make_readonly( $ref => 1 )
                                 if $sigil ne '&';
 
-                            push @{ $export_tags->{$tag} }, $symbol;
-                            push @{ $export_ok }, $symbol;
+                            $add_symbol_to_exports->($symbol, $tag);
 
                             next;
 
@@ -174,7 +137,7 @@ sub import {
 
                         # TODO: when symbol isn't available
 
-                        $value = $stash->get_symbol( _normalize_symbol ${$value} );
+                        $value = $stash->get_symbol( _normalize_symbol( ${$value} ));
 
                         $value = _dereference($value)
                             if ((ref $value) eq 'CODE')
@@ -184,8 +147,7 @@ sub import {
 
                     _add_symbol($stash, $symbol, $value);
 
-                    push @{ $export_tags->{$tag} }, $symbol;
-                    push @{ $export_ok }, $symbol;
+                    $add_symbol_to_exports->($symbol, $tag);
 
                     next;
                 }
@@ -197,6 +159,10 @@ sub import {
         }
 
     }
+
+    # Now ensure @EXPORT, @EXPORT_OK and %EXPORT_TAGS contain unique
+    # symbols. This may not matter to Exporter, but we want to ensure
+    # the values are 'clean'. It also simplifies testing.
 
     {
         my @list;
@@ -227,6 +193,47 @@ sub import {
 
 
 }
+
+
+sub _dereference {
+    my ($ref) = @_;
+    for(reftype $ref) {
+        return ${$ref} if /SCALAR/;
+        return &{$ref} if /CODE/;
+        return @{$ref} if /ARRAY/;
+        return %{$ref} if /HASH/;
+        croak "Unable to dereference $_";
+    }
+}
+
+sub _add_symbol {
+    my ($stash, $symbol, $value) = @_;
+
+    my $sigil = _get_sigil($symbol);
+    if ($sigil ne '&') {
+
+        $stash->add_symbol($symbol, $value);
+        Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+
+    } else {
+
+         $stash->add_symbol( '&' . $symbol, sub { $value });
+
+    }
+}
+
+sub _get_sigil {
+    my ($symbol) = @_;
+    $symbol =~ /^(\W)/;
+    return $1 // '&';
+}
+
+sub _normalize_symbol {
+    my ($symbol) = @_;
+    $symbol = '&' . $symbol unless $symbol =~ /^\W/;
+    return $symbol;
+}
+
 
 1;
 
