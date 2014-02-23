@@ -266,14 +266,6 @@ and use that module:
 This module allows you to declare constants that can be exported to
 other modules.
 
-=head1 LIMITATIONS
-
-This module cannot be used as part of another module that defines
-other symbols to export.  If you want to use this module to declare
-constants to be exported along with subroutines, then declare the
-constants in a separate module and import them into your module. They
-can be re-exported.
-
 =head1 SEE ALSO
 
 =head2 Similar Modules
