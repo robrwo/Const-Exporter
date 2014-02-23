@@ -106,6 +106,9 @@ sub import {
                     my $sigil  = _get_sigil($symbol);
                     my $norm   = _normalize_symbol($symbol);
 
+                    # If the symbol is already defined, that we add it
+                    # to the exports for that tag.
+
                     if ($stash->has_symbol($norm)) {
 
                         my $ref = $stash->get_symbol($norm);
