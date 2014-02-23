@@ -317,6 +317,22 @@ that you can reference constants in other expressions, e.g.
         '$one' => 1 + $zero,
     ];
 
+or even something more complex:
+
+  use Const::Exporter
+
+     http_ports => [
+        'HTTP'     => 80,
+        'HTTP_ALT' => 8080,
+        'HTTPS'    => 443,
+     ];
+
+  use Const::Exporter
+
+     http_ports => [
+        '@HTTP_PORTS' => [ HTTP, HTTP_ALT, HTTPS ],
+     ];
+
 Constants can include traditional L<constant> symbols, as well as
 scalars, arrays or hashes.
 

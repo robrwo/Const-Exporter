@@ -18,3 +18,4 @@ META.yml
 README
 t/01-compile.t
 t/10-basic.t
+t/20-example.t
