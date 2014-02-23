@@ -396,6 +396,15 @@ however, this is equivalent to
       'baz' => 'neh',
     ];
 
+=head2 Export Tags
+
+By default, all symbols are exportable (in C<@EXPORT_OK>.)  There is
+currently no support for C<@EXPORT_TAGS_OK>.
+
+The C<:default> tag is the same as not specifying any exports.
+
+The C<:all> tag exports all symbols.
+
 =head1 SEE ALSO
 
 See L<Exporter> for a discussion of export tags.

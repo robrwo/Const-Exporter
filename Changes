@@ -2,6 +2,8 @@ Revision history for Const::Exporer
 
 v0.1.2
 
+         - Added section to the POD about export tags.
+
          - Added descriptions of similar modules, and fixed typo in
            module name.  Removed list of non-exporting modules.
 
