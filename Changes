@@ -1,5 +1,9 @@
 Revision history for Const::Exporer
 
+v0.1.2
+
+         - Changed module short description.
+
 v0.1.1   2014-02-24
 
          - Added missing Changes and MANIFEST.SKIP files.

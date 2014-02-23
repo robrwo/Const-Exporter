@@ -5,7 +5,7 @@ use v5.10.1;
 use strict;
 use warnings;
 
-use version 0.77; our $VERSION = version->declare('v0.1.1');
+use version 0.77; our $VERSION = version->declare('v0.1.2');
 
 use Carp;
 use Const::Fast;
@@ -221,7 +221,7 @@ sub _get_sigil {
 
 =head1 NAME
 
-Const::Exporter - export constants
+Const::Exporter - Declare constants for export.
 
 =head1 SYNOPSIS
 
