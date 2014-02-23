@@ -276,7 +276,68 @@ and use that module:
 This module allows you to declare constants that can be exported to
 other modules.
 
+To declare constants, simply group then into export tags:
+
+  package MyApp::Constants;
+
+  use Const::Exporer
+
+    tag_a => [
+       'foo' => 1,
+       'bar' => 2,
+    ],
+
+    tag_b => [
+       'baz' => 3,
+       'bar',
+    ],
+
+    default => [
+       'foo',
+    ];
+
+Constants in the "default" tag are exported by default (that is, they are added
+to the C<@EXPORTS> array).
+
+When a constant is already defined in a previous tag, then no value is
+specified for it. (For example, "bar" in "tab_b" above.)
+
+Your module can include multiple calls to C<use Const::Exporter>, so
+that you can reference constants in other expressions, e.g.
+
+  use Const::Exporter
+
+    tag => [
+        '$zero' => 0,
+    ];
+
+  use Const::Exporter
+
+    tag => [
+        '$one' => 1 + $zero,
+    ];
+
+Constants can include traditional L<constant> symbols, as well as
+scalars, arrays or hashes.
+
+Constants can include values defined elsewhere in the code, e.g.
+
+  our $foo;
+
+  BEGIN {
+     $foo = calculate_value_for_constant();
+  }
+
+  use Const::Exporer
+
+    tag => [ '$foo' ];
+
+Note that this will make the symbol read-only. You don't need to
+explicitly declare it as such.
+
 =head1 SEE ALSO
+
+See L<Exporter> for a discussion of export tags.
 
 =head2 Similar Modules
 
@@ -287,6 +348,18 @@ other modules.
 =item L<Constant::Exporter>
 
 =item L<Constant::Exporter::Lazy>
+
+=back
+
+=head2 Modules for Declaring Readonly values
+
+=over
+
+=item L<constant>
+
+=item L<Readonly>
+
+=item L<Const::Fast>
 
 =back
 
