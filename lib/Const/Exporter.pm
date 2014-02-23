@@ -10,6 +10,7 @@ use version 0.77; our $VERSION = version->declare('v0.0.3');
 use Carp;
 use Const::Fast;
 use Exporter ();
+use List::MoreUtils qw/ uniq /;
 use Package::Stash;
 use Scalar::Util qw/ reftype /;
 
@@ -39,7 +40,26 @@ sub import {
     my ($caller) = caller;
     my $stash    = Package::Stash->new($caller);
 
-    my ( @export, @export_ok, %export_tags, %symbols );
+    my $export = $stash->get_symbol('@EXPORT');
+    unless ($export) {
+        $stash->add_symbol('@EXPORT', [ ]);
+        $export = $stash->get_symbol('@EXPORT');
+    }
+
+    my $export_ok = $stash->get_symbol('@EXPORT_OK');
+    unless ($export_ok) {
+        $stash->add_symbol('@EXPORT_OK', [ ]);
+        $export_ok = $stash->get_symbol('@EXPORT_OK');
+    }
+
+    my $export_tags = $stash->get_symbol('%EXPORT_TAGS');
+    unless ($export_tags) {
+        $stash->add_symbol('%EXPORT_TAGS', { });
+        $export_tags = $stash->get_symbol('%EXPORT_TAGS');
+    }
+
+    $stash->add_symbol('&import', \&Exporter::import)
+        unless ($stash->has_symbol('&import'));
 
     while ( my $tag = shift ) {
 
@@ -83,8 +103,10 @@ sub import {
 
                         }
 
-                        push @{ $export_tags{$tag} }, $symbol;
-                        $symbols{$symbol} = 1;
+                        $export_tags->{$tag} //= [ ];
+
+                        push @{ $export_tags->{$tag} }, $symbol;
+                        push @{ $export_ok }, $symbol;
 
 
                     }
@@ -99,7 +121,7 @@ sub import {
                     $symbol =~ /^(\W)/;
                     my $sigil = $1;
 
-                    $export_tags{$tag} //= [ ];
+                    $export_tags->{$tag} //= [ ];
 
                     if ($stash->has_symbol($symbol)) {
 
@@ -109,8 +131,8 @@ sub import {
 
                             Const::Fast::_make_readonly( $ref => 1 );
 
-                            push @{ $export_tags{$tag} }, $symbol;
-                            $symbols{$symbol} = 1;
+                            push @{ $export_tags->{$tag} }, $symbol;
+                            push @{ $export_ok }, $symbol;
 
                             next;
 
@@ -148,8 +170,8 @@ sub import {
 
                     }
 
-                    push @{ $export_tags{$tag} }, $symbol;
-                    $symbols{$symbol} = 1;
+                    push @{ $export_tags->{$tag} }, $symbol;
+                    push @{ $export_ok }, $symbol;
 
                     next;
                 }
@@ -162,16 +184,28 @@ sub import {
 
     }
 
-    push @export,    @{$export_tags{default}} if $export_tags{default};
-    push @export_ok, @export, (keys %symbols);
+    {
+        my @list;
+        while (my $symbol = shift @{$export}) {
+            push @list, $symbol;
+        }
+        push @list, @{$export_tags->{default}} if $export_tags->{default};
+        push @{$export}, uniq @list;
+    }
 
-    $export_tags{all} = \@export_ok;
+    {
+        my @list;
+        while (my $symbol = shift @{$export_ok}) {
+            push @list, $symbol;
+        }
+        push @{$export_ok}, uniq @list;
 
-    $stash->add_symbol('@EXPORT',      \@export);
-    $stash->add_symbol('@EXPORT_OK',   \@export_ok);
-    $stash->add_symbol('%EXPORT_TAGS', \%export_tags);
+        $export_tags->{all} //= [ ];
 
-    $stash->add_symbol('&import', \&Exporter::import);
+        push @{$export_tags->{all}}, @{$export_ok};
+    }
+
+
 }
 
 1;
