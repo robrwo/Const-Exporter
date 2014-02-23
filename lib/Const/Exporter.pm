@@ -361,25 +361,19 @@ See L<Exporter> for a discussion of export tags.
 
 =item L<Exporter::Constants>
 
+This module only allows you to declare function symbol constants, akin
+to the L<constant> module, without tags.
+
 =item L<Constant::Exporter>
 
-=item L<Constant::Exporter::Lazy>
+This module only allows you to declare function symbol constants, akin
+to the L<constant> module, although you can specify tags.
 
-=back
+=item L<Constant::Export::Lazy>
 
-=head2 Modules for Declaring Readonly values
-
-=over
-
-=item L<constant>
-
-=item L<enum>
-
-=item L<Const::Fast>
-
-=item L<Readonly>
-
-=item L<Readonly::Enum>
+This module only allows you to declare function symbol constants, akin
+to the L<constant> module by defining functions that are only called
+as needed.  The interface is rather complex.
 
 =back
 
