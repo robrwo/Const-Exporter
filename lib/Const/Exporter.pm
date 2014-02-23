@@ -45,7 +45,8 @@ sub import {
     my ($caller) = caller;
     my $stash    = Package::Stash->new($caller);
 
-    #
+    # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
+    # don't yet exist.
 
     my $export = $stash->get_symbol('@EXPORT');
     unless ($export) {
@@ -78,6 +79,8 @@ sub import {
         while (my $item = shift @{$defs} ) {
 
             for( ref $item ) {
+
+                # Array reference means a list of enumerated symbols
 
                 if (/^ARRAY$/) {
 
@@ -120,6 +123,8 @@ sub import {
 
                     next;
                 }
+
+                # A scalar is a name of a symbol
 
                 if (/^$/) {
 
