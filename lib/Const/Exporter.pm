@@ -29,7 +29,6 @@ sub _get_sigil {
 
 sub _dereference {
     my ($ref) = @_;
-
     for(reftype $ref) {
         return ${$ref} if /SCALAR/;
         return &{$ref} if /CODE/;
@@ -43,6 +42,22 @@ sub _normalize_symbol {
     my ($symbol) = @_;
     $symbol = '&' . $symbol unless $symbol =~ /^\W/;
     return $symbol;
+}
+
+sub _add_symbol {
+    my ($stash, $symbol, $value) = @_;
+
+    my $sigil = _get_sigil($symbol);
+    if ($sigil ne '&') {
+
+        $stash->add_symbol($symbol, $value);
+        Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+
+    } else {
+
+         $stash->add_symbol( '&' . $symbol, sub { $value });
+
+    }
 }
 
 sub import {
@@ -104,20 +119,7 @@ sub import {
 
                         $value = @values ? (shift @values) : ++$value;
 
-                        my $sigil = _get_sigil($symbol);
-                        if ($sigil ne '&') {
-
-                            $stash->add_symbol($symbol, $value);
-
-                            Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
-                        } else {
-
-                            my $clone = $value;
-                            $stash->add_symbol( _normalize_symbol($symbol),
-                                                sub { $clone });
-
-
-                        }
+                        _add_symbol($stash, $symbol, $value);
 
                         $export_tags->{$tag} //= [ ];
 
@@ -180,16 +182,7 @@ sub import {
 
                     }
 
-                    if ( $sigil ne '&' ) {
-
-                        $stash->add_symbol($symbol, $value,);
-
-                        Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
-                    } else {
-
-                        $stash->add_symbol( $norm, sub { $value });
-
-                    }
+                    _add_symbol($stash, $symbol, $value);
 
                     push @{ $export_tags->{$tag} }, $symbol;
                     push @{ $export_ok }, $symbol;
