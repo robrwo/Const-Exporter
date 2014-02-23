@@ -135,18 +135,6 @@ sub import {
 
                     my $value = shift @{$defs};
 
-                    if (ref($value) eq 'SCALAR') {
-
-                        # TODO: when symbol isn't available
-
-                        $value = $stash->get_symbol( _normalize_symbol( ${$value} ));
-
-                        $value = _dereference($value)
-                            if ((ref $value) eq 'CODE')
-                            || !$sigil; # code
-
-                    }
-
                     _add_symbol($stash, $symbol, $value);
 
                     $add_symbol_to_exports->($symbol, $tag);
@@ -194,18 +182,6 @@ sub import {
     }
 
 
-}
-
-
-sub _dereference {
-    my ($ref) = @_;
-    for(reftype $ref) {
-        return ${$ref} if /SCALAR/;
-        return &{$ref} if /CODE/;
-        return @{$ref} if /ARRAY/;
-        return %{$ref} if /HASH/;
-        croak "Unable to dereference $_";
-    }
 }
 
 sub _add_symbol {
@@ -262,15 +238,18 @@ Define a constants module:
         '%bo'  => { a => 1 },    # exports "%bo"
      ],
 
-     tag_b => [
+     tag_b => [                  # use MyApp::Constants /:tag_b/;
         'foo',                   # exports "foo" (same as from ":tag_a")
-        'moo' => \ '$bar',       # exports "moo" (same value as "$bar")
         '$zoo',                  # exports "$zoo" (as defined above)
      ];
 
   # `use Const::Exporter` can be specified multiple times
 
   use Const::Exporter
+
+     tag_b => [                 # we can add symbols to ":tab_b"
+        'moo' => $bar,          # exports "moo" (same value as "$bar")
+     ],
 
      enums => [
 

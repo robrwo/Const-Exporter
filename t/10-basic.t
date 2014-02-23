@@ -27,11 +27,15 @@ use Const::Exporter
         '%hash' => { a => 3, b => 7, },
         '$pre',
         '$post',
-        '$ref'  => \ '$num',
         [qw/ aa0 aa1 aa2 aa3 /] => 0,
         [qw/ ab1 ab2 ab3 ab4 /] => [1, 3, 12],
         [qw/ $ac1 $ac2 $ac3 /] => [18, 12],
 
+    ];
+
+use Const::Exporter
+    default => [
+        '$ref' => $num,
     ];
 
 use Const::Exporter
