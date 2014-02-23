@@ -16,10 +16,16 @@ use Scalar::Util qw/ reftype /;
 
 const my %SIGIL_TYPE => (
     '$' => 'SCALAR',
-    '%' => 'HASH',
-    '@' => 'ARRAY',
     '&' => 'CODE',
+    '@' => 'ARRAY',
+    '%' => 'HASH',
 );
+
+sub _get_sigil {
+    my ($symbol) = @_;
+    $symbol =~ /^(\W)/;
+    return $1 // '&';
+}
 
 sub _dereference {
     my ($ref) = @_;
@@ -34,9 +40,9 @@ sub _dereference {
 }
 
 sub _normalize_symbol {
-    my ($sym) = @_;
-    $sym = '&' . $sym unless $sym =~ /^\W/;
-    return $sym;
+    my ($symbol) = @_;
+    $symbol = '&' . $symbol unless $symbol =~ /^\W/;
+    return $symbol;
 }
 
 sub import {
@@ -98,8 +104,8 @@ sub import {
 
                         $value = @values ? (shift @values) : ++$value;
 
-                        $symbol =~ /^(\W)/;
-                        if (my $sigil = $1) {
+                        my $sigil = _get_sigil($symbol);
+                        if ($sigil ne '&') {
 
                             $stash->add_symbol($symbol, $value);
 
@@ -131,8 +137,7 @@ sub import {
                     my $symbol = $item;
                     my $norm   =  _normalize_symbol( $symbol );
 
-                    $symbol =~ /^(\W)/;
-                    my $sigil = $1;
+                    my $sigil = _get_sigil($symbol);
 
                     $export_tags->{$tag} //= [ ];
 
@@ -140,12 +145,13 @@ sub import {
 
                         my $ref = $stash->get_symbol($norm);
 
-                        if ($SIGIL_TYPE{$sigil // '&'} eq reftype($ref)) {
+                        if ($SIGIL_TYPE{$sigil} eq reftype($ref)) {
 
                             # In case symbol is defined as `our`
                             # beforehand, make it readonly.
 
-                            Const::Fast::_make_readonly( $ref => 1 ) if $sigil;
+                            Const::Fast::_make_readonly( $ref => 1 )
+                                if $sigil ne '&';
 
                             push @{ $export_tags->{$tag} }, $symbol;
                             push @{ $export_ok }, $symbol;
@@ -174,7 +180,7 @@ sub import {
 
                     }
 
-                    if ( $sigil ) {
+                    if ( $sigil ne '&' ) {
 
                         $stash->add_symbol($symbol, $value,);
 
