@@ -20,13 +20,6 @@ sub import {
     my ($caller) = caller;
     my $stash    = Package::Stash->new($caller);
 
-    const my %_reftype_from_sigil => (
-        '$' => 'SCALAR',
-        '&' => 'CODE',
-        '@' => 'ARRAY',
-        '%' => 'HASH',
-    );
-
     # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
     # don't yet exist.
 
@@ -107,13 +100,14 @@ sub import {
                     my $norm   = ($sigil eq '&') ? ($sigil . $symbol) : $symbol;
 
                     # If the symbol is already defined, that we add it
-                    # to the exports for that tag.
+                    # to the exports for that tag and assume no value
+                    # is given for it.
 
                     if ($stash->has_symbol($norm)) {
 
                         my $ref = $stash->get_symbol($norm);
 
-                        if ($_reftype_from_sigil{$sigil} eq reftype($ref)) {
+                        if (_get_reftype($sigil) eq reftype($ref)) {
 
                             # In case symbol is defined as `our`
                             # beforehand, ensure it is readonly.
@@ -206,6 +200,20 @@ sub _get_sigil {
     my ($symbol) = @_;
     $symbol =~ /^(\W)/;
     return $1 // '&';
+}
+
+{
+    const my %_reftype => (
+        '$' => 'SCALAR',
+        '&' => 'CODE',
+        '@' => 'ARRAY',
+        '%' => 'HASH',
+    );
+
+    sub _get_reftype {
+        my ($sigil) = @_;
+        return $_reftype{$sigil};
+    }
 }
 
 1;
