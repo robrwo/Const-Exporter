@@ -19,10 +19,17 @@ SYNOPSIS
             '%bo'  => { a => 1 },    # exports "%bo"
          ],
 
-         tag_b => [
+         tag_b => [                  # use MyApp::Constants /:tag_b/;
             'foo',                   # exports "foo" (same as from ":tag_a")
-            'moo' => \ '$bar',       # exports "moo" (same value as "$bar")
             '$zoo',                  # exports "$zoo" (as defined above)
+         ];
+
+      # `use Const::Exporter` can be specified multiple times
+
+      use Const::Exporter
+
+         tag_b => [                 # we can add symbols to ":tab_b"
+            'moo' => $bar,          # exports "moo" (same value as "$bar")
          ],
 
          enums => [
@@ -45,11 +52,79 @@ DESCRIPTION
     This module allows you to declare constants that can be exported to
     other modules.
 
+    To declare constants, simply group then into export tags:
+
+      package MyApp::Constants;
+
+      use Const::Exporer
+
+        tag_a => [
+           'foo' => 1,
+           'bar' => 2,
+        ],
+
+        tag_b => [
+           'baz' => 3,
+           'bar',
+        ],
+
+        default => [
+           'foo',
+        ];
+
+    Constants in the "default" tag are exported by default (that is, they
+    are added to the `@EXPORTS' array).
+
+    When a constant is already defined in a previous tag, then no value is
+    specified for it. (For example, "bar" in "tab_b" above.)
+
+    Your module can include multiple calls to `use Const::Exporter', so that
+    you can reference constants in other expressions, e.g.
+
+      use Const::Exporter
+
+        tag => [
+            '$zero' => 0,
+        ];
+
+      use Const::Exporter
+
+        tag => [
+            '$one' => 1 + $zero,
+        ];
+
+    Constants can include traditional constant symbols, as well as scalars,
+    arrays or hashes.
+
+    Constants can include values defined elsewhere in the code, e.g.
+
+      our $foo;
+
+      BEGIN {
+         $foo = calculate_value_for_constant();
+      }
+
+      use Const::Exporer
+
+        tag => [ '$foo' ];
+
+    Note that this will make the symbol read-only. You don't need to
+    explicitly declare it as such.
+
 SEE ALSO
+    See Exporter for a discussion of export tags.
+
   Similar Modules
     Exporter::Constants
     Constant::Exporter
     Constant::Exporter::Lazy
+
+  Modules for Declaring Readonly values
+    constant
+    enum
+    Const::Fast
+    Readonly
+    Readonly::Enum
 
 AUTHOR
     Robert Rothenberg, `<rrwo at cpan.org>'

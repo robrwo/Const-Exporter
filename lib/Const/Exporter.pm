@@ -5,7 +5,7 @@ use v5.10.1;
 use strict;
 use warnings;
 
-use version 0.77; our $VERSION = version->declare('v0.1.0');
+use version 0.77; our $VERSION = version->declare('v0.1.1');
 
 use Carp;
 use Const::Fast;
@@ -357,9 +357,13 @@ See L<Exporter> for a discussion of export tags.
 
 =item L<constant>
 
-=item L<Readonly>
+=item L<enum>
 
 =item L<Const::Fast>
+
+=item L<Readonly>
+
+=item L<Readonly::Enum>
 
 =back
 
