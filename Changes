@@ -2,6 +2,8 @@ Revision history for Const::Exporer
 
 v0.1.2
 
+         - Added more examples to POD, along with tests.
+
          - Changed module short description.
 
 v0.1.1   2014-02-24
