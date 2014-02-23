@@ -34,6 +34,17 @@ use Const::Exporter
 
     ];
 
+use Const::Exporter
+    tag1 => [
+        'foo' => 9,
+        'bar' => 8,
+    ],
+
+    tag2 => [
+        'foo',
+        '$num',
+    ];
+
 is(nam, 'abc123', "function name");
 
 is($num, 1234, "scalar (number)");
@@ -60,9 +71,9 @@ is_deeply( [ $ac1, $ac2, $ac3 ], [18, 12, 13], "enum scalars (indexed badly)");
 
 is_deeply( [sort @EXPORT], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 /], '@EXPORT');
 
-is_deeply( [sort @EXPORT_OK], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 /], '@EXPORT_OK');
+is_deeply( [sort @EXPORT_OK], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 foo bar /], '@EXPORT_OK');
 
-is_deeply( [sort keys %EXPORT_TAGS], [qw/ all default /], '%EXPORT_TAGS' );
+is_deeply( [sort keys %EXPORT_TAGS], [qw/ all default tag1 tag2 /], '%EXPORT_TAGS' );
 
 is_deeply( [sort @{$EXPORT_TAGS{default}}], [sort @EXPORT], '%EXPORT_TAGS{default}' );
 is_deeply( [sort @{$EXPORT_TAGS{all}}], [sort @EXPORT_OK], '%EXPORT_TAGS{all}' );

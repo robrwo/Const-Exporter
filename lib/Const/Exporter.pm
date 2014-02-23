@@ -199,10 +199,16 @@ sub import {
             push @list, $symbol;
         }
         push @{$export_ok}, uniq @list;
+    }
 
+    {
         $export_tags->{all} //= [ ];
 
-        push @{$export_tags->{all}}, @{$export_ok};
+        my @list = @{$export_ok};
+        while (my $symbol = shift @{$export_tags->{all}}) {
+            push @list, $symbol;
+        }
+        push @{$export_tags->{all}}, uniq @list;
     }
 
 
