@@ -243,7 +243,11 @@ Define a constants module:
         'foo',                   # exports "foo" (same as from ":tag_a")
         'moo' => \ '$bar',       # exports "moo" (same value as "$bar")
         '$zoo',                  # exports "$zoo" (as defined above)
-     ],
+     ];
+
+  # `use Const::Exporter` can be specified multiple times
+
+  use Const::Exporter
 
      enums => [
 
