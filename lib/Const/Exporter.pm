@@ -14,7 +14,7 @@ use List::MoreUtils qw/ uniq /;
 use Package::Stash;
 use Scalar::Util qw/ reftype /;
 
-const my %SIGIL_TYPE => ( '$' => 'SCALAR', '%' => 'HASH', '@' => 'ARRAY' );
+const my %SIGIL_TYPE => ( '$' => 'SCALAR', '%' => 'HASH', '@' => 'ARRAY', '&' => 'CODE' );
 
 sub _dereference {
     my ($ref) = @_;
@@ -123,11 +123,14 @@ sub import {
 
                     $export_tags->{$tag} //= [ ];
 
-                    if ($stash->has_symbol($symbol)) {
+                    if ($stash->has_symbol( _normalize_symbol( $symbol ))) {
 
-                        my $ref = $stash->get_symbol($symbol);
+                        my $ref = $stash->get_symbol( _normalize_symbol( $symbol ));
 
-                        if ($SIGIL_TYPE{$sigil} eq reftype($ref)) {
+                        if ($SIGIL_TYPE{$sigil // '&'} eq reftype($ref)) {
+
+                            # In case symbol is defined as `our`
+                            # beforehand, make it readonly.
 
                             Const::Fast::_make_readonly( $ref => 1 );
 
