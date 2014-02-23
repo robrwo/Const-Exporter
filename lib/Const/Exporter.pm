@@ -14,7 +14,12 @@ use List::MoreUtils qw/ uniq /;
 use Package::Stash;
 use Scalar::Util qw/ reftype /;
 
-const my %SIGIL_TYPE => ( '$' => 'SCALAR', '%' => 'HASH', '@' => 'ARRAY', '&' => 'CODE' );
+const my %SIGIL_TYPE => (
+    '$' => 'SCALAR',
+    '%' => 'HASH',
+    '@' => 'ARRAY',
+    '&' => 'CODE',
+);
 
 sub _dereference {
     my ($ref) = @_;
@@ -39,6 +44,8 @@ sub import {
 
     my ($caller) = caller;
     my $stash    = Package::Stash->new($caller);
+
+    #
 
     my $export = $stash->get_symbol('@EXPORT');
     unless ($export) {
@@ -117,22 +124,23 @@ sub import {
                 if (/^$/) {
 
                     my $symbol = $item;
+                    my $norm   =  _normalize_symbol( $symbol );
 
                     $symbol =~ /^(\W)/;
                     my $sigil = $1;
 
                     $export_tags->{$tag} //= [ ];
 
-                    if ($stash->has_symbol( _normalize_symbol( $symbol ))) {
+                    if ($stash->has_symbol($norm)) {
 
-                        my $ref = $stash->get_symbol( _normalize_symbol( $symbol ));
+                        my $ref = $stash->get_symbol($norm);
 
                         if ($SIGIL_TYPE{$sigil // '&'} eq reftype($ref)) {
 
                             # In case symbol is defined as `our`
                             # beforehand, make it readonly.
 
-                            Const::Fast::_make_readonly( $ref => 1 );
+                            Const::Fast::_make_readonly( $ref => 1 ) if $sigil;
 
                             push @{ $export_tags->{$tag} }, $symbol;
                             push @{ $export_ok }, $symbol;
@@ -168,8 +176,7 @@ sub import {
                         Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
                     } else {
 
-                        $stash->add_symbol( _normalize_symbol($symbol),
-                                            sub { $value });
+                        $stash->add_symbol( $norm, sub { $value });
 
                     }
 
