@@ -36,6 +36,7 @@ use Const::Exporter
 use Const::Exporter
     default => [
         '$ref' => $num,
+        'nam2' => nam,
     ];
 
 use Const::Exporter
@@ -68,6 +69,7 @@ dies_ok { $hash{c} = 9 } "readonly hash";
 is($pre, 10, "our scalar (number)");
 
 is($ref, $num, "reference copy");
+is(nam2, nam, "reference copy");
 dies_ok { $ref = 4 } "readonly scalar";
 
 is_deeply( [ aa0, aa1, aa2, aa3 ], [0..3], "enums (zero-based)" );
@@ -77,9 +79,9 @@ is_deeply( [ $ac1, $ac2, $ac3 ], [18, 12, 13], "enum scalars (indexed badly)");
 is(foo, 9, "Constant defined in second call");
 is(bar, $num, "Reference pre-defined constant");
 
-is_deeply( [sort @EXPORT], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 /], '@EXPORT');
+is_deeply( [sort @EXPORT], [sort qw/ nam nam2 $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 /], '@EXPORT');
 
-is_deeply( [sort @EXPORT_OK], [sort qw/ nam $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 foo bar /], '@EXPORT_OK');
+is_deeply( [sort @EXPORT_OK], [sort qw/ nam nam2 $num $str @arr %hash $pre $post $ref aa0 aa1 aa2 aa3 ab1 ab2 ab3 ab4 $ac1 $ac2 $ac3 foo bar /], '@EXPORT_OK');
 
 is_deeply( [sort keys %EXPORT_TAGS], [qw/ all default tag1 tag2 /], '%EXPORT_TAGS' );
 

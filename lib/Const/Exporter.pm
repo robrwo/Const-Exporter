@@ -104,7 +104,7 @@ sub import {
 
                     my $symbol = $item;
                     my $sigil  = _get_sigil($symbol);
-                    my $norm   = _normalize_symbol($symbol);
+                    my $norm   = ($sigil eq '&') ? ($sigil . $symbol) : $symbol;
 
                     # If the symbol is already defined, that we add it
                     # to the exports for that tag.
@@ -116,16 +116,18 @@ sub import {
                         if ($_reftype_from_sigil{$sigil} eq reftype($ref)) {
 
                             # In case symbol is defined as `our`
-                            # beforehand, make it readonly.
+                            # beforehand, ensure it is readonly.
 
-                            Const::Fast::_make_readonly( $ref => 1 )
-                                if $sigil ne '&';
+                            Const::Fast::_make_readonly( $ref => 1 );
 
                             $add_symbol_to_exports->($symbol, $tag);
 
                             next;
 
                         } else {
+
+                            # We defining a symbol with a different
+                            # sigil, e.g. '$foo' and '@foo';
 
                             # TODO: warn about multiple symbols
 
@@ -205,13 +207,6 @@ sub _get_sigil {
     $symbol =~ /^(\W)/;
     return $1 // '&';
 }
-
-sub _normalize_symbol {
-    my ($symbol) = @_;
-    $symbol = '&' . $symbol unless $symbol =~ /^\W/;
-    return $symbol;
-}
-
 
 1;
 
