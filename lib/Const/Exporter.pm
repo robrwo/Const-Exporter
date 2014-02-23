@@ -20,7 +20,7 @@ sub import {
     my ($caller) = caller;
     my $stash    = Package::Stash->new($caller);
 
-    const my %SIGIL_TYPE => (
+    const my %_reftype_from_sigil => (
         '$' => 'SCALAR',
         '&' => 'CODE',
         '@' => 'ARRAY',
@@ -103,15 +103,14 @@ sub import {
                 if (/^$/) {
 
                     my $symbol = $item;
-                    my $norm   =  _normalize_symbol( $symbol );
-
-                    my $sigil = _get_sigil($symbol);
+                    my $sigil  = _get_sigil($symbol);
+                    my $norm   = _normalize_symbol($symbol);
 
                     if ($stash->has_symbol($norm)) {
 
                         my $ref = $stash->get_symbol($norm);
 
-                        if ($SIGIL_TYPE{$sigil} eq reftype($ref)) {
+                        if ($_reftype_from_sigil{$sigil} eq reftype($ref)) {
 
                             # In case symbol is defined as `our`
                             # beforehand, make it readonly.
