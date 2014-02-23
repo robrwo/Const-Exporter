@@ -1,0 +1,13 @@
+.*~$
+.*\.(bak|old)$
+\.git/.*
+\.gitignore
+
+^Makefile$
+
+^blib/
+^pm_to_blib$
+
+Const-Exporter-.*\.tar\.gz
+
+^MYMETA\.*
