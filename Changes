@@ -1,0 +1,13 @@
+Revision history for Const::Exporer
+
+v0.1.1   2014-02-24
+
+         - Added missing Changes and MANIFEST.SKIP files.
+
+         - Added additional modules to SEE ALSO section.
+
+         - Updated README.
+
+v0.1.0   2014-02-23
+
+         - First public release of Const::Exporter.
