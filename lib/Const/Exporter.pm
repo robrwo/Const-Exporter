@@ -351,6 +351,51 @@ Constants can include values defined elsewhere in the code, e.g.
 Note that this will make the symbol read-only. You don't need to
 explicitly declare it as such.
 
+Enumerated constants are also supported:
+
+  use Const::Exporer
+
+    tag => [
+
+      [qw/ foo bar baz /] => 1,
+
+    ];
+
+will define the symbols "foo" (1), "bar" (2) and "baz" (3).
+
+You can also specify a list of numbers, if you want to skip values:
+
+  use Const::Exporer
+
+    tag => [
+
+      [qw/ foo bar baz /] => [1, 4],
+
+    ];
+
+will define the symbols "foo" (1), "bar" (4) and "baz" (5).
+
+You can even specify string values:
+
+  use Const::Exporer
+
+    tag => [
+
+      [qw/ foo bar baz /] => [qw/ feh meh neh /],
+
+    ];
+
+however, this is equivalent to
+
+
+  use Const::Exporer
+
+    tag => [
+      'foo' => 'feh',
+      'bar' => 'meh',
+      'baz' => 'neh',
+    ];
+
 =head1 SEE ALSO
 
 See L<Exporter> for a discussion of export tags.
