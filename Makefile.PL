@@ -34,7 +34,7 @@ requires (
     'Package::Stash'     => 0,
     'Scalar::Util'       => 0,
     'version'            => 0.77,
-    );
+);
 
 recommends (
     'Package::Stash::XS' => 0,
