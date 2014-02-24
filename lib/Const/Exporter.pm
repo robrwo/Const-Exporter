@@ -1,6 +1,6 @@
 package Const::Exporter;
 
-use v5.10.1;
+use v5.10.0;
 
 use strict;
 use warnings;
