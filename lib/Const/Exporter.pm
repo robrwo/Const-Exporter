@@ -32,15 +32,6 @@ sub import {
     $stash->add_symbol('&import', \&Exporter::import)
         unless ($stash->has_symbol('&import'));
 
-    my $add_symbol_to_exports = sub {
-        my ($symbol, $tag) = @_;
-
-        $export_tags->{$tag} //= [ ];
-
-        push @{ $export_tags->{$tag} }, $symbol;
-        push @{ $export_ok }, $symbol;
-    };
-
     while ( my $tag = shift ) {
 
         croak "'${tag}' is reserved" if $tag eq 'all';
@@ -73,8 +64,7 @@ sub import {
                         $value = @values ? (shift @values) : ++$value;
 
                         _add_symbol($stash, $symbol, $value);
-
-                        $add_symbol_to_exports->($symbol, $tag);
+                        _export_symbol($stash, $symbol, $tag);
 
                     }
 
@@ -104,7 +94,7 @@ sub import {
 
                             Const::Fast::_make_readonly( $ref => 1 );
 
-                            $add_symbol_to_exports->($symbol, $tag);
+                            _export_symbol($stash, $symbol, $tag);
 
                             next;
 
@@ -122,8 +112,7 @@ sub import {
                     my $value = shift @{$defs};
 
                     _add_symbol($stash, $symbol, $value);
-
-                    $add_symbol_to_exports->($symbol, $tag);
+                    _export_symbol($stash, $symbol, $tag);
 
                     next;
                 }
@@ -168,6 +157,20 @@ sub _add_symbol {
          $stash->add_symbol( '&' . $symbol, sub { $value });
 
     }
+}
+
+# Add a symbol to @EXPORT_OK and %EXPORT_TAGS
+
+sub _export_symbol {
+    my ($stash, $symbol, $tag) = @_;
+
+    my $export_ok = $stash->get_symbol('@EXPORT_OK');
+    my $export_tags = $stash->get_symbol('%EXPORT_TAGS');
+
+    $export_tags->{$tag} //= [ ];
+
+    push @{ $export_tags->{$tag} }, $symbol;
+    push @{ $export_ok }, $symbol;
 }
 
 # Function to get the sigil from a symbol. If no sigil, it assumes
