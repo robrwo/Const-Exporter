@@ -87,25 +87,14 @@ sub import {
 
                         my $ref = $stash->get_symbol($norm);
 
-                        if (_get_reftype($sigil) eq reftype($ref)) {
+                        # In case symbol is defined as `our`
+                        # beforehand, ensure it is readonly.
 
-                            # In case symbol is defined as `our`
-                            # beforehand, ensure it is readonly.
+                        Const::Fast::_make_readonly( $ref => 1 );
 
-                            Const::Fast::_make_readonly( $ref => 1 );
+                        _export_symbol($stash, $symbol, $tag);
 
-                            _export_symbol($stash, $symbol, $tag);
-
-                            next;
-
-                        } else {
-
-                            # We defining a symbol with a different
-                            # sigil, e.g. '$foo' and '@foo';
-
-                            # TODO: warn about multiple symbols
-
-                        }
+                        next;
 
                     }
 
