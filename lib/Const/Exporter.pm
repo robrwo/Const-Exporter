@@ -43,6 +43,8 @@ sub import {
 
     while ( my $tag = shift ) {
 
+        croak "'${tag}' is reserved" if $tag eq 'all';
+
         my $defs = shift;
 
         croak "An array reference required for tag '${tag}'"

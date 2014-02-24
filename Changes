@@ -2,6 +2,8 @@ Revision history for Const::Exporer
 
 v0.1.2
 
+         - import dies if given the tag "all", since it's reserved.
+
          - Code cleanup.
 
          - Added section to the POD about export tags.
