@@ -1,21 +1,12 @@
 Revision history for Const::Exporer
 
-v0.1.2
+v0.1.2   2014-02-24
 
-         - import dies if given the tag "all", since it's reserved.
+         - Import dies if given the tag "all", since it's reserved.
+
+         - Various documentation improvements.
 
          - Code cleanup.
-
-         - Added section to the POD about export tags.
-
-         - Added descriptions of similar modules, and fixed typo in
-           module name.  Removed list of non-exporting modules.
-
-         - Fixed typo in Changes.
-
-         - Added more examples to POD, along with tests.
-
-         - Changed module short description.
 
 v0.1.1   2014-02-23
 
