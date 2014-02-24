@@ -152,6 +152,8 @@ sub import {
     _uniq($export_tags->{$_}) for keys %{$export_tags};
 }
 
+# Add a symbol to the stash
+
 sub _add_symbol {
     my ($stash, $symbol, $value) = @_;
 
@@ -168,11 +170,16 @@ sub _add_symbol {
     }
 }
 
+# Function to get the sigil from a symbol. If no sigil, it assumes
+# that it is a function reference.
+
 sub _get_sigil {
     my ($symbol) = @_;
     $symbol =~ /^(\W)/;
     return $1 // '&';
 }
+
+# Function to convert a sigil into the corresponding reftype.
 
 {
     const my %_reftype => (
@@ -187,6 +194,9 @@ sub _get_sigil {
         return $_reftype{$sigil};
     }
 }
+
+# Function to take a list reference and prune duplicate elements from
+# it.
 
 sub _uniq {
     my ($listref) = @_;
