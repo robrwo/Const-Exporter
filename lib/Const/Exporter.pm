@@ -141,36 +141,15 @@ sub import {
     # symbols. This may not matter to Exporter, but we want to ensure
     # the values are 'clean'. It also simplifies testing.
 
-    # TODO: this is ugly, but changing the symbols to point to new
-    # clean lists does not seem to work.
+    push @{$export}, @{$export_tags->{default}} if $export_tags->{default};
+    _uniq( $export );
 
-    {
-        my @list;
-        while (my $symbol = shift @{$export}) {
-            push @list, $symbol;
-        }
-        push @list, @{$export_tags->{default}} if $export_tags->{default};
-        push @{$export}, uniq @list;
-    }
+    _uniq( $export_ok );
 
-    {
-        my @list;
-        while (my $symbol = shift @{$export_ok}) {
-            push @list, $symbol;
-        }
-        push @{$export_ok}, uniq @list;
-    }
+    $export_tags->{all} //= [ ];
+    push @{ $export_tags->{all} }, @{$export_ok};
 
-    {
-        $export_tags->{all} //= [ ];
-
-        my @list = @{$export_ok};
-        while (my $symbol = shift @{$export_tags->{all}}) {
-            push @list, $symbol;
-        }
-        push @{$export_tags->{all}}, uniq @list;
-    }
-
+    _uniq($export_tags->{$_}) for keys %{$export_tags};
 }
 
 sub _add_symbol {
@@ -207,6 +186,19 @@ sub _get_sigil {
         my ($sigil) = @_;
         return $_reftype{$sigil};
     }
+}
+
+sub _uniq {
+    my ($listref) = @_;
+    my ($i, %seen);
+    while (defined $listref->[$i //= 0]) {
+        if (++$seen{$listref->[$i]} > 1) {
+            splice($listref, $i, 1);
+        } else {
+            ++$i;
+        }
+    }
+
 }
 
 1;
