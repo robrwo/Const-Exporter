@@ -190,15 +190,11 @@ sub _get_sigil {
 
 sub _uniq {
     my ($listref) = @_;
-    my ($i, %seen);
-    while (defined $listref->[$i //= 0]) {
-        if (++$seen{$listref->[$i]} > 1) {
-            splice($listref, $i, 1);
-        } else {
-            ++$i;
-        }
+    my %seen;
+    while (my $item = shift @{$listref}) {
+        $seen{$item} = 1;
     }
-
+    push @{$listref}, keys %seen;
 }
 
 1;
