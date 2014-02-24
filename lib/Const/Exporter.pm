@@ -213,7 +213,7 @@ Define a constants module:
 
   use Const::Fast;
 
-  const our $zoo => 1234;
+  our $zoo => 1234;
 
   use Const::Exporter
 
