@@ -281,7 +281,8 @@ Constants in the "default" tag are exported by default (that is, they are added
 to the C<@EXPORTS> array).
 
 When a constant is already defined in a previous tag, then no value is
-specified for it. (For example, "bar" in "tab_b" above.)
+specified for it. (For example, "bar" in "tab_b" above.)  If you do
+give a value, L<Const::Exporter> will assume it's another symbol.
 
 Your module can include multiple calls to C<use Const::Exporter>, so
 that you can reference constants in other expressions, e.g.
@@ -419,6 +420,16 @@ By default, all symbols are exportable (in C<@EXPORT_OK>.)
 The C<:default> tag is the same as not specifying any exports.
 
 The C<:all> tag exports all symbols.
+
+=head2 Using as part of a module with exported functions
+
+L<Const::Exporter> is not intended for use with modules that also
+export functions.
+
+There are workarounds that you can use, such as getting
+L<Const::Exporter> to export your functions, or munging C<@EXPORT> et
+al separately, but these are not supported and changes in the future
+my break our code.
 
 =head1 SEE ALSO
 
