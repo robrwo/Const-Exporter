@@ -390,8 +390,7 @@ however, this is equivalent to
 
 =head2 Export Tags
 
-By default, all symbols are exportable (in C<@EXPORT_OK>.)  There is
-currently no support for C<@EXPORT_TAGS_OK>.
+By default, all symbols are exportable (in C<@EXPORT_OK>.)
 
 The C<:default> tag is the same as not specifying any exports.
 
