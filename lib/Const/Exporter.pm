@@ -23,23 +23,11 @@ sub import {
     # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
     # don't yet exist.
 
-    my $export = $stash->get_symbol('@EXPORT');
-    unless ($export) {
-        $stash->add_symbol('@EXPORT', [ ]);
-        $export = $stash->get_symbol('@EXPORT');
-    }
+    my $export = $stash->get_or_add_symbol('@EXPORT');
 
-    my $export_ok = $stash->get_symbol('@EXPORT_OK');
-    unless ($export_ok) {
-        $stash->add_symbol('@EXPORT_OK', [ ]);
-        $export_ok = $stash->get_symbol('@EXPORT_OK');
-    }
+    my $export_ok = $stash->get_or_add_symbol('@EXPORT_OK');
 
-    my $export_tags = $stash->get_symbol('%EXPORT_TAGS');
-    unless ($export_tags) {
-        $stash->add_symbol('%EXPORT_TAGS', { });
-        $export_tags = $stash->get_symbol('%EXPORT_TAGS');
-    }
+    my $export_tags = $stash->get_or_add_symbol('%EXPORT_TAGS');
 
     $stash->add_symbol('&import', \&Exporter::import)
         unless ($stash->has_symbol('&import'));
@@ -151,6 +139,9 @@ sub import {
     # symbols. This may not matter to Exporter, but we want to ensure
     # the values are 'clean'. It also simplifies testing.
 
+    # TODO: this is ugly, but changing the symbols to point to new
+    # clean lists does not seem to work.
+
     {
         my @list;
         while (my $symbol = shift @{$export}) {
@@ -177,7 +168,6 @@ sub import {
         }
         push @{$export_tags->{all}}, uniq @list;
     }
-
 
 }
 
