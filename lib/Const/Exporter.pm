@@ -368,7 +368,6 @@ You can even specify string values:
 
 however, this is equivalent to
 
-
   use Const::Exporer
 
     tag => [
@@ -376,6 +375,42 @@ however, this is equivalent to
       'bar' => 'meh',
       'baz' => 'neh',
     ];
+
+=head2 Mixing POD with Tags
+
+The following code is a syntax error, at least with some versions of
+Perl:
+
+  use Const::Exporter
+
+  =head2 a
+
+  =cut
+
+    a => [ foo => 1 ],
+
+  =head2 b
+
+  =cut
+
+    b => [ bar => 2 ];
+
+If you want to mix POD with your declarations, use multiple use lines,
+e.g.
+
+  =head2 a
+
+  =cut
+
+  use Const::Exporter
+    a => [ foo => 1 ];
+
+  =head2 b
+
+  =cut
+
+  use Const::Exporter
+    b => [ bar => 2 ];
 
 =head2 Export Tags
 
