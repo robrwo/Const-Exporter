@@ -1,5 +1,7 @@
 Revision history for Const::Exporer
 
+         - Removed unnecessary dependency from Makefile.PL.
+
 v0.1.2   2014-02-24
 
          - Import dies if given the tag "all", since it's reserved.
