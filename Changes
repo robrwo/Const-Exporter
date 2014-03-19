@@ -1,5 +1,7 @@
 Revision history for Const::Exporer
 
+	 - Updated README based on POD changes.
+
 	 - Added QA tests to the git repo.
 
          - Removed unnecessary dependency from Makefile.PL.
