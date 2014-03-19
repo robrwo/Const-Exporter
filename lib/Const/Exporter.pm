@@ -343,7 +343,7 @@ Enumerated constants are also supported:
 
     ];
 
-will define the symbols "foo" (1), "bar" (2) and "baz" (3).
+will define the symbols C<foo> (1), C<bar> (2) and C<baz> (3).
 
 You can also specify a list of numbers, if you want to skip values:
 
@@ -355,7 +355,7 @@ You can also specify a list of numbers, if you want to skip values:
 
     ];
 
-will define the symbols "foo" (1), "bar" (4) and "baz" (5).
+will define the symbols C<foo> (1), C<bar> (4) and C<baz> (5).
 
 You can even specify string values:
 
@@ -427,9 +427,9 @@ L<Const::Exporter> is not intended for use with modules that also
 export functions.
 
 There are workarounds that you can use, such as getting
-L<Const::Exporter> to export your functions, or munging C<@EXPORT> et
-al separately, but these are not supported and changes in the future
-my break our code.
+L<Const::Exporter> to export your functions, or munging C<@EXPORT>
+etc. separately, but these are not supported and changes in the
+future my break our code.
 
 =head1 SEE ALSO
 
