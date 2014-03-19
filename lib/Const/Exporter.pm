@@ -257,6 +257,8 @@ and use that module:
 This module allows you to declare constants that can be exported to
 other modules.
 
+=for readme stop
+
 To declare constants, simply group then into export tags:
 
   package MyApp::Constants;
@@ -431,6 +433,8 @@ L<Const::Exporter> to export your functions, or munging C<@EXPORT>
 etc. separately, but these are not supported and changes in the
 future my break our code.
 
+=for readme continue
+
 =head1 SEE ALSO
 
 See L<Exporter> for a discussion of export tags.
@@ -471,6 +475,8 @@ copy of the full license at:
 
 L<http://www.perlfoundation.org/artistic_license_2_0>
 
+=for readme stop
+
 Any use, modification, and distribution of the Standard or Modified
 Versions is governed by this Artistic License. By using, modifying or
 distributing the Package, you accept this license. Do not use, modify,
@@ -500,6 +506,8 @@ YOUR LOCAL LAW. UNLESS REQUIRED BY LAW, NO COPYRIGHT HOLDER OR
 CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+=for readme continue
 
 =cut
 
