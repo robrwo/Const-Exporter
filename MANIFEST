@@ -21,8 +21,3 @@ t/10-basic.t
 t/11-tags.t
 t/20-example.t
 t/21-example.t
-xt/etc/custom-dictionary.txt
-xt/manifest.t
-xt/pod-coverage.t
-xt/pod-spelling.t
-xt/pod.t
