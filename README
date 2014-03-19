@@ -1,5 +1,5 @@
 NAME
-    Const::Exporter - export constants
+    Const::Exporter - Declare constants for export.
 
 SYNOPSIS
     Define a constants module:
@@ -8,7 +8,7 @@ SYNOPSIS
 
       use Const::Fast;
 
-      const our $zoo => 1234;
+      our $zoo => 1234;
 
       use Const::Exporter
 
@@ -76,7 +76,8 @@ DESCRIPTION
     are added to the `@EXPORTS' array).
 
     When a constant is already defined in a previous tag, then no value is
-    specified for it. (For example, "bar" in "tab_b" above.)
+    specified for it. (For example, "bar" in "tab_b" above.) If you do give
+    a value, Const::Exporter will assume it's another symbol.
 
     Your module can include multiple calls to `use Const::Exporter', so that
     you can reference constants in other expressions, e.g.
@@ -92,6 +93,22 @@ DESCRIPTION
         tag => [
             '$one' => 1 + $zero,
         ];
+
+    or even something more complex:
+
+      use Const::Exporter
+
+         http_ports => [
+            'HTTP'     => 80,
+            'HTTP_ALT' => 8080,
+            'HTTPS'    => 443,
+         ];
+
+      use Const::Exporter
+
+         http_ports => [
+            '@HTTP_PORTS' => [ HTTP, HTTP_ALT, HTTPS ],
+         ];
 
     Constants can include traditional constant symbols, as well as scalars,
     arrays or hashes.
@@ -111,20 +128,116 @@ DESCRIPTION
     Note that this will make the symbol read-only. You don't need to
     explicitly declare it as such.
 
+    Enumerated constants are also supported:
+
+      use Const::Exporer
+
+        tag => [
+
+          [qw/ foo bar baz /] => 1,
+
+        ];
+
+    will define the symbols `foo' (1), `bar' (2) and `baz' (3).
+
+    You can also specify a list of numbers, if you want to skip values:
+
+      use Const::Exporer
+
+        tag => [
+
+          [qw/ foo bar baz /] => [1, 4],
+
+        ];
+
+    will define the symbols `foo' (1), `bar' (4) and `baz' (5).
+
+    You can even specify string values:
+
+      use Const::Exporer
+
+        tag => [
+
+          [qw/ foo bar baz /] => [qw/ feh meh neh /],
+
+        ];
+
+    however, this is equivalent to
+
+      use Const::Exporer
+
+        tag => [
+          'foo' => 'feh',
+          'bar' => 'meh',
+          'baz' => 'neh',
+        ];
+
+  Mixing POD with Tags
+    The following code is a syntax error, at least with some versions of
+    Perl:
+
+      use Const::Exporter
+
+      =head2 a
+
+      =cut
+
+        a => [ foo => 1 ],
+
+      =head2 b
+
+      =cut
+
+        b => [ bar => 2 ];
+
+    If you want to mix POD with your declarations, use multiple use lines,
+    e.g.
+
+      =head2 a
+
+      =cut
+
+      use Const::Exporter
+        a => [ foo => 1 ];
+
+      =head2 b
+
+      =cut
+
+      use Const::Exporter
+        b => [ bar => 2 ];
+
+  Export Tags
+    By default, all symbols are exportable (in `@EXPORT_OK'.)
+
+    The `:default' tag is the same as not specifying any exports.
+
+    The `:all' tag exports all symbols.
+
+  Using as part of a module with exported functions
+    Const::Exporter is not intended for use with modules that also export
+    functions.
+
+    There are workarounds that you can use, such as getting Const::Exporter
+    to export your functions, or munging `@EXPORT' etc. separately, but
+    these are not supported and changes in the future my break our code.
+
 SEE ALSO
     See Exporter for a discussion of export tags.
 
   Similar Modules
     Exporter::Constants
-    Constant::Exporter
-    Constant::Exporter::Lazy
+        This module only allows you to declare function symbol constants,
+        akin to the constant module, without tags.
 
-  Modules for Declaring Readonly values
-    constant
-    enum
-    Const::Fast
-    Readonly
-    Readonly::Enum
+    Constant::Exporter
+        This module only allows you to declare function symbol constants,
+        akin to the constant module, although you can specify tags.
+
+    Constant::Export::Lazy
+        This module only allows you to declare function symbol constants,
+        akin to the constant module by defining functions that are only
+        called as needed. The interface is rather complex.
 
 AUTHOR
     Robert Rothenberg, `<rrwo at cpan.org>'
