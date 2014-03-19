@@ -1,6 +1,8 @@
 Revision history for Const::Exporer
 
-	 - Updated README based on POD changes.
+	 - Fixed formatting of Changes file.
+
+	 - Cleaned up details from README using Pod::Readme.
 
 	 - Added QA tests to the git repo.
 
