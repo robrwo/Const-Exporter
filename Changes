@@ -1,6 +1,8 @@
-Revision history for Const::Exporer
+Revision history for Const::Exporter
 
-         - Added support for blessed objects in constants.
+         - Fixed typos in POD and Changes file.
+
+         - Added support for blessed objects in scalar constants.
 
          - Perltidied source code.
 
