@@ -270,7 +270,7 @@ To declare constants, simply group then into export tags:
 
   package MyApp::Constants;
 
-  use Const::Exporer
+  use Const::Exporter
 
     tag_a => [
        'foo' => 1,
@@ -335,7 +335,7 @@ Constants can include values defined elsewhere in the code, e.g.
      $foo = calculate_value_for_constant();
   }
 
-  use Const::Exporer
+  use Const::Exporter
 
     tag => [ '$foo' ];
 
@@ -344,7 +344,7 @@ explicitly declare it as such.
 
 Enumerated constants are also supported:
 
-  use Const::Exporer
+  use Const::Exporter
 
     tag => [
 
@@ -356,7 +356,7 @@ will define the symbols C<foo> (1), C<bar> (2) and C<baz> (3).
 
 You can also specify a list of numbers, if you want to skip values:
 
-  use Const::Exporer
+  use Const::Exporter
 
     tag => [
 
@@ -368,7 +368,7 @@ will define the symbols C<foo> (1), C<bar> (4) and C<baz> (5).
 
 You can even specify string values:
 
-  use Const::Exporer
+  use Const::Exporter
 
     tag => [
 
@@ -378,7 +378,7 @@ You can even specify string values:
 
 however, this is equivalent to
 
-  use Const::Exporer
+  use Const::Exporter
 
     tag => [
       'foo' => 'feh',
