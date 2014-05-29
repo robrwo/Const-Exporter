@@ -1,5 +1,9 @@
 Revision history for Const::Exporer
 
+         - Added support for blessed objects in constants.
+
+         - Perltidied source code.
+
 	 - Fixed formatting of Changes file.
 
 	 - Cleaned up details from README using Pod::Readme.

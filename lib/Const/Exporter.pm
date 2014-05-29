@@ -11,13 +11,13 @@ use Carp;
 use Const::Fast;
 use Exporter ();
 use Package::Stash;
-use Scalar::Util qw/ reftype /;
+use Scalar::Util qw/ blessed reftype /;
 
 sub import {
-    my $pkg  = shift;
+    my $pkg = shift;
 
     my ($caller) = caller;
-    my $stash    = Package::Stash->new($caller);
+    my $stash = Package::Stash->new($caller);
 
     # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
     # don't yet exist.
@@ -28,8 +28,8 @@ sub import {
 
     my $export_tags = $stash->get_or_add_symbol('%EXPORT_TAGS');
 
-    $stash->add_symbol('&import', \&Exporter::import)
-        unless ($stash->has_symbol('&import'));
+    $stash->add_symbol( '&import', \&Exporter::import )
+        unless ( $stash->has_symbol('&import') );
 
     while ( my $tag = shift ) {
 
@@ -38,32 +38,32 @@ sub import {
         my $defs = shift;
 
         croak "An array reference required for tag '${tag}'"
-            unless (ref $defs ) eq 'ARRAY';
+            unless ( ref $defs ) eq 'ARRAY';
 
-        while (my $item = shift @{$defs} ) {
+        while ( my $item = shift @{$defs} ) {
 
-            for( ref $item ) {
+            for ( ref $item ) {
 
                 # Array reference means a list of enumerated symbols
 
                 if (/^ARRAY$/) {
 
-                    my @enums  = @{$item};
-                    my $start  = shift @{$defs};
+                    my @enums = @{$item};
+                    my $start = shift @{$defs};
 
-                    my @values = (ref $start) ? @{ $start } : ( $start );
+                    my @values = ( ref $start ) ? @{$start} : ($start);
 
                     my $value = 0;
 
-                    while (my $symbol = shift @enums) {
+                    while ( my $symbol = shift @enums ) {
 
                         croak "${symbol} already exists"
-                            if ($stash->has_symbol($symbol));
+                            if ( $stash->has_symbol($symbol) );
 
-                        $value = @values ? (shift @values) : ++$value;
+                        $value = @values ? ( shift @values ) : ++$value;
 
-                        _add_symbol($stash, $symbol, $value);
-                        _export_symbol($stash, $symbol, $tag);
+                        _add_symbol( $stash, $symbol, $value );
+                        _export_symbol( $stash, $symbol, $tag );
 
                     }
 
@@ -76,13 +76,14 @@ sub import {
 
                     my $symbol = $item;
                     my $sigil  = _get_sigil($symbol);
-                    my $norm   = ($sigil eq '&') ? ($sigil . $symbol) : $symbol;
+                    my $norm
+                        = ( $sigil eq '&' ) ? ( $sigil . $symbol ) : $symbol;
 
                     # If the symbol is already defined, that we add it
                     # to the exports for that tag and assume no value
                     # is given for it.
 
-                    if ($stash->has_symbol($norm)) {
+                    if ( $stash->has_symbol($norm) ) {
 
                         my $ref = $stash->get_symbol($norm);
 
@@ -91,7 +92,7 @@ sub import {
 
                         Const::Fast::_make_readonly( $ref => 1 );
 
-                        _export_symbol($stash, $symbol, $tag);
+                        _export_symbol( $stash, $symbol, $tag );
 
                         next;
 
@@ -99,8 +100,8 @@ sub import {
 
                     my $value = shift @{$defs};
 
-                    _add_symbol($stash, $symbol, $value);
-                    _export_symbol($stash, $symbol, $tag);
+                    _add_symbol( $stash, $symbol, $value );
+                    _export_symbol( $stash, $symbol, $tag );
 
                     next;
                 }
@@ -108,7 +109,6 @@ sub import {
                 croak "$_ is not supported";
 
             }
-
 
         }
 
@@ -118,31 +118,38 @@ sub import {
     # symbols. This may not matter to Exporter, but we want to ensure
     # the values are 'clean'. It also simplifies testing.
 
-    push @{$export}, @{$export_tags->{default}} if $export_tags->{default};
-    _uniq( $export );
+    push @{$export}, @{ $export_tags->{default} } if $export_tags->{default};
+    _uniq($export);
 
-    _uniq( $export_ok );
+    _uniq($export_ok);
 
-    $export_tags->{all} //= [ ];
+    $export_tags->{all} //= [];
     push @{ $export_tags->{all} }, @{$export_ok};
 
-    _uniq($export_tags->{$_}) for keys %{$export_tags};
+    _uniq( $export_tags->{$_} ) for keys %{$export_tags};
 }
 
 # Add a symbol to the stash
 
 sub _add_symbol {
-    my ($stash, $symbol, $value) = @_;
+    my ( $stash, $symbol, $value ) = @_;
 
     my $sigil = _get_sigil($symbol);
-    if ($sigil ne '&') {
+    if ( $sigil ne '&' ) {
 
-        $stash->add_symbol($symbol, $value);
-        Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+        if ( blessed $value) {
+
+            $stash->add_symbol( $symbol, \$value );
+            Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+
+        } else {
+            $stash->add_symbol( $symbol, $value );
+            Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
+        }
 
     } else {
 
-         $stash->add_symbol( '&' . $symbol, sub { $value });
+        $stash->add_symbol( '&' . $symbol, sub {$value} );
 
     }
 }
@@ -150,15 +157,15 @@ sub _add_symbol {
 # Add a symbol to @EXPORT_OK and %EXPORT_TAGS
 
 sub _export_symbol {
-    my ($stash, $symbol, $tag) = @_;
+    my ( $stash, $symbol, $tag ) = @_;
 
-    my $export_ok = $stash->get_symbol('@EXPORT_OK');
+    my $export_ok   = $stash->get_symbol('@EXPORT_OK');
     my $export_tags = $stash->get_symbol('%EXPORT_TAGS');
 
-    $export_tags->{$tag} //= [ ];
+    $export_tags->{$tag} //= [];
 
     push @{ $export_tags->{$tag} }, $symbol;
-    push @{ $export_ok }, $symbol;
+    push @{$export_ok}, $symbol;
 }
 
 # Function to get the sigil from a symbol. If no sigil, it assumes
@@ -192,7 +199,7 @@ sub _get_sigil {
 sub _uniq {
     my ($listref) = @_;
     my %seen;
-    while (my $item = shift @{$listref}) {
+    while ( my $item = shift @{$listref} ) {
         $seen{$item} = 1;
     }
     push @{$listref}, keys %seen;
