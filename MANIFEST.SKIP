@@ -8,6 +8,7 @@
 ^blib/
 ^pm_to_blib$
 
+Const-Exporter-.*/
 Const-Exporter-.*\.tar\.gz
 
 ^MYMETA\.*
