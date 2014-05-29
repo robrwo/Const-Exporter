@@ -2,11 +2,11 @@ Revision history for Const::Exporter
 
 v0.2.0   2014-05-29
 
+         - Bug Fix: scalar constants can have blessed values.
+
          - Updated MANIFEST.SKIP.
 
          - Fixed typos in POD and Changes file.
-
-         - Added support for blessed objects in scalar constants.
 
          - Perltidied source code.
 
