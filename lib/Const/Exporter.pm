@@ -386,6 +386,14 @@ however, this is equivalent to
       'baz' => 'neh',
     ];
 
+Objects are also supported,
+
+   use Const::Exporter
+
+    tag => [
+      '$foo' => Something->new( 123 ),
+    ];
+
 =head2 Mixing POD with Tags
 
 The following code is a syntax error, at least with some versions of
