@@ -1,4 +1,10 @@
-Revision history for Const::Exporer
+Revision history for Const::Exporter
+
+         - Fixed typos in POD and Changes file.
+
+         - Added support for blessed objects in scalar constants.
+
+         - Perltidied source code.
 
 	 - Fixed formatting of Changes file.
 
