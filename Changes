@@ -1,23 +1,27 @@
 Revision history for Const::Exporter
 
-         [Documentation]
+        [Documentation]
          - Corrected typos in POD.
 
          - Added requirements to README.
 
-v0.2.0   2014-05-29
+         - Reformatted Changes.
 
+v0.2.0   2014-05-29
+         [Bug Fixes]
          - Bug Fix: scalar constants can have blessed values.
 
-         - Updated MANIFEST.SKIP.
-
+         [Documentation]
          - Fixed typos in POD and Changes file.
-
-         - Perltidied source code.
 
 	 - Fixed formatting of Changes file.
 
 	 - Cleaned up details from README using Pod::Readme.
+
+         [Other Changes]
+         - Updated MANIFEST.SKIP.
+
+         - Perltidied source code.
 
 	 - Added QA tests to the git repo.
 
