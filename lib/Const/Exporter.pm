@@ -211,6 +211,23 @@ sub _uniq {
 
 Const::Exporter - Declare constants for export.
 
+=begin readme
+
+=head1 REQUIREMENTS
+
+This module reqiures Perl v5.10 or newer, and the following non-core
+modules:
+
+=over
+
+=item L<Const::Fast>
+
+=item L<Package::Stash>
+
+=back
+
+=end readme
+
 =head1 SYNOPSIS
 
 Define a constants module:
