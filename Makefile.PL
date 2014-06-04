@@ -5,7 +5,6 @@ use inc::Module::Install;
 
 name 'Const-Exporter';
 all_from 'lib/Const/Exporter.pm';
-author q{Robert Rothenberg <rrwo@cpan.org>};
 license 'artistic2';
 
 perl_version 5.010;
