@@ -211,6 +211,23 @@ sub _uniq {
 
 Const::Exporter - Declare constants for export.
 
+=begin readme
+
+=head1 REQUIREMENTS
+
+This module requires Perl v5.10 or newer, and the following non-core
+modules:
+
+=over
+
+=item L<Const::Fast>
+
+=item L<Package::Stash>
+
+=back
+
+=end readme
+
 =head1 SYNOPSIS
 
 Define a constants module:
@@ -286,11 +303,11 @@ To declare constants, simply group then into export tags:
        'foo',
     ];
 
-Constants in the "default" tag are exported by default (that is, they are added
-to the C<@EXPORTS> array).
+Constants in the C<default> tag are exported by default (that is, they
+are added to the C<@EXPORTS> array).
 
 When a constant is already defined in a previous tag, then no value is
-specified for it. (For example, "bar" in "tab_b" above.)  If you do
+specified for it. (For example, C<bar> in C<tab_b> above.)  If you do
 give a value, L<Const::Exporter> will assume it's another symbol.
 
 Your module can include multiple calls to C<use Const::Exporter>, so

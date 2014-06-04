@@ -1,6 +1,13 @@
 NAME
     Const::Exporter - Declare constants for export.
 
+REQUIREMENTS
+    This module requires Perl v5.10 or newer, and the following non-core
+    modules:
+
+    Const::Fast
+    Package::Stash
+
 SYNOPSIS
     Define a constants module:
 
