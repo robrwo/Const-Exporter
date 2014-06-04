@@ -215,7 +215,7 @@ Const::Exporter - Declare constants for export.
 
 =head1 REQUIREMENTS
 
-This module reqiures Perl v5.10 or newer, and the following non-core
+This module requires Perl v5.10 or newer, and the following non-core
 modules:
 
 =over
