@@ -1,5 +1,5 @@
 use Test::Most;
-use Test::Warnings;
+use if $ENV{RELEASE_TESTING}, 'Test::Warnings';
 
 use_ok('Const::Exporter');
 

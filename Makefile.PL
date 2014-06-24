@@ -41,7 +41,6 @@ recommends(
 test_requires(
     'Hash::Objectify' => 0,
     'Test::Most'      => 0,
-    'Test::Warnings'  => 0,
 );
 
 install_as_cpan;

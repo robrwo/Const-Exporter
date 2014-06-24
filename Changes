@@ -1,5 +1,9 @@
 Revision history for Const::Exporter
 
+        [Other Changes]
+        - Test::Warnings is only used if the RELEASE_TESTING variable
+          is set.
+
 v0.2.1  2014-06-04
         [Documentation]
          - Corrected typos in POD.
