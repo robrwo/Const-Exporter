@@ -1,5 +1,6 @@
 Revision history for Const::Exporter
 
+v0.2.2  2014-06-24
         [Other Changes]
         - Test::Warnings is only used if the RELEASE_TESTING variable
           is set.
