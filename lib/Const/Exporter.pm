@@ -222,7 +222,11 @@ modules:
 
 =item L<Const::Fast>
 
+=item L<Hash::Objectify> (for testing)
+
 =item L<Package::Stash>
+
+=item L<Test::Most> (for testing)
 
 =back
 

@@ -6,7 +6,9 @@ REQUIREMENTS
     modules:
 
     Const::Fast
+    Hash::Objectify (for testing)
     Package::Stash
+    Test::Most (for testing)
 
 SYNOPSIS
     Define a constants module:
