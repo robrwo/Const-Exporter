@@ -16,3 +16,7 @@ Const-Exporter-.*\.tar\.gz
 # QA tests not needed for distribution
 
 ^xt/
+
+# Travis-CI
+
+\.travis\.yml$
