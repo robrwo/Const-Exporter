@@ -5,7 +5,7 @@ use v5.10.0;
 use strict;
 use warnings;
 
-use version 0.77; our $VERSION = version->declare('v0.2.2');
+use version 0.77; our $VERSION = version->declare('v0.2.3');
 
 use Carp;
 use Const::Fast;
