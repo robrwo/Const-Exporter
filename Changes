@@ -1,5 +1,8 @@
 Revision history for Const::Exporter
 
+        [Other Changes]
+        - MANIFEST.SKIP updated to ignore .travis.yml.
+
 v0.2.2  2014-06-24
         [Documentation]
          - Added testing requirements to README.
