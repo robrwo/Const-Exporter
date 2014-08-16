@@ -1,6 +1,6 @@
 Revision history for Const::Exporter
 
-v0.2.3
+v0.2.3  2014-08-16
         [Other Changes]
         - MANIFEST.SKIP updated to ignore .travis.yml.
 
