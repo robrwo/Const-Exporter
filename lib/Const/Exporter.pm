@@ -5,7 +5,7 @@ use v5.10.0;
 use strict;
 use warnings;
 
-use version 0.77; our $VERSION = version->declare('v0.2.3');
+use version; our $VERSION = version->declare('v0.2.4');
 
 use Carp;
 use Const::Fast;
@@ -503,7 +503,7 @@ Robert Rothenberg, C<< <rrwo at cpan.org> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2014 Robert Rothenberg.
+Copyright 2014-2015 Robert Rothenberg.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a

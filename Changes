@@ -1,5 +1,19 @@
 Revision history for Const::Exporter
 
+v0.2.4  2015-01-08
+        - No functional changes.
+
+        [Documentation]
+        - Bumped copyright year.
+
+        [Incompatabilities]
+        - Bumped minimum Perl version to v5.10.1.
+
+        [Other Changes]
+        - Removed version from version, to workaround the issue where
+          Carton thinks v0.9909 < v0.77 (which is the version included
+          w/Perl v5.10.1 anyway).
+
 v0.2.3  2014-08-16
         [Other Changes]
         - MANIFEST.SKIP updated to ignore .travis.yml.

@@ -7,7 +7,7 @@ name 'Const-Exporter';
 all_from 'lib/Const/Exporter.pm';
 license 'artistic_2';
 
-perl_version 5.010;
+perl_version 5.010001;
 
 tests_recursive('t');
 
@@ -30,7 +30,7 @@ requires(
     'Exporter'       => 0,
     'Package::Stash' => 0,
     'Scalar::Util'   => 0,
-    'version'        => 0.77,
+    'version'        => 0,
 );
 
 recommends(
