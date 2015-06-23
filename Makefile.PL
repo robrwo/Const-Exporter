@@ -39,8 +39,9 @@ recommends(
 );
 
 test_requires(
-    'Hash::Objectify' => 0,
-    'Test::Most'      => 0,
+    'Hash::Objectify'   => 0,
+    'Test::Most'        => 0,
+    'Test::Differences' => 0,
 );
 
 install_as_cpan;

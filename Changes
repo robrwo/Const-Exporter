@@ -1,5 +1,9 @@
 Revision history for Const::Exporter
 
+{{$NEXT}}
+        [Other Changes]
+        - Explicit prereq for Test::Differences for some CPAN Testers
+
 v0.2.4  2015-01-08
         - No functional changes.
 
