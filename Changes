@@ -1,6 +1,9 @@
 Revision history for Const::Exporter
 
 {{$NEXT}}
+        [Documentation]
+        - Added note about dependencies.
+
         [Other Changes]
         - Explicit prereq for Test::Differences for some CPAN Testers
 

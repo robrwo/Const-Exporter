@@ -471,6 +471,14 @@ future my break our code.
 
 =for readme continue
 
+=head2 A Note about Dependencies
+
+Most of the dependencies of L<Const::Exporter> are core modules.
+
+L<Package::Stash> is used by L<DBIx::Class>, L<Moose> and
+L<namespace::clean>. Those modules are used by many Modern Perl
+modules and applications.
+
 =head1 SEE ALSO
 
 See L<Exporter> for a discussion of export tags.
@@ -546,4 +554,3 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =for readme continue
 
 =cut
-
