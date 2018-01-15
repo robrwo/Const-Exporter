@@ -9,6 +9,8 @@ Revision history for Const::Exporter
 
         - Fixed typos (B. Estrade).
 
+        - Mention Const::Fast::Exporter in SEE ALSO.
+
         [Other Changes]
         - Explicit prereq for Test::Differences for some CPAN Testers
 

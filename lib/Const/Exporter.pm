@@ -525,6 +525,11 @@ This module only allows you to declare function symbol constants, akin
 to the L<constant> module by defining functions that are only called
 as needed.  The interface is rather complex.
 
+=item L<Const::Fast::Exporter>
+
+This module will export all constants declared in the package's
+namespace.
+
 =back
 
 =head1 AUTHOR
