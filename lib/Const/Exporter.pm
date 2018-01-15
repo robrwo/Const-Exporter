@@ -29,7 +29,7 @@ sub import {
     my $export_tags = $stash->get_or_add_symbol('%EXPORT_TAGS');
 
     $stash->add_symbol( '&import', \&Exporter::import )
-        unless ( $stash->has_symbol('&import') );
+      unless ( $stash->has_symbol('&import') );
 
     while ( my $tag = shift ) {
 
@@ -38,7 +38,7 @@ sub import {
         my $defs = shift;
 
         croak "An array reference required for tag '${tag}'"
-            unless ( ref $defs ) eq 'ARRAY';
+          unless ( ref $defs ) eq 'ARRAY';
 
         while ( my $item = shift @{$defs} ) {
 
@@ -58,7 +58,7 @@ sub import {
                     while ( my $symbol = shift @enums ) {
 
                         croak "${symbol} already exists"
-                            if ( $stash->has_symbol($symbol) );
+                          if ( $stash->has_symbol($symbol) );
 
                         $value = @values ? ( shift @values ) : ++$value;
 
@@ -76,8 +76,8 @@ sub import {
 
                     my $symbol = $item;
                     my $sigil  = _get_sigil($symbol);
-                    my $norm
-                        = ( $sigil eq '&' ) ? ( $sigil . $symbol ) : $symbol;
+                    my $norm =
+                      ( $sigil eq '&' ) ? ( $sigil . $symbol ) : $symbol;
 
                     # If the symbol is already defined, that we add it
                     # to the exports for that tag and assume no value
@@ -142,14 +142,16 @@ sub _add_symbol {
             $stash->add_symbol( $symbol, \$value );
             Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
 
-        } else {
+        }
+        else {
             $stash->add_symbol( $symbol, $value );
             Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
         }
 
-    } else {
+    }
+    else {
 
-        $stash->add_symbol( '&' . $symbol, sub {$value} );
+        $stash->add_symbol( '&' . $symbol, sub { $value } );
 
     }
 }
@@ -280,26 +282,26 @@ and use that module:
 
   ...
 
-=head2 Dynamically Creating Constants 
+=head2 Dynamically Creating Constants
 
 You may also import a predefined hash of constants for exporting dynamically:
 
  use Const::Exporter;
-  
+
  my %myconstants = (
         'foo'  => 1,
         '$bar' => 2,
         '@baz' => [qw/ a b c /],
         '%bo'  => { a => 1 },
  );
-  
+
  # ... do stuff
-   
+
  Const::Exporter->import(
       constants => [%myconstants],        # define constants for exporting
       default   => [ keys %myconstants ], # export everything in %myconstants by default
  );
-  
+
 =head1 DESCRIPTION
 
 This module allows you to declare constants that can be exported to
