@@ -270,7 +270,7 @@ Define a constants module:
 
      ],
 
-     default => [qw/ fo $bar /]; # exported by default
+     default => [qw/ foo $bar /]; # exported by default
 
 and use that module:
 
@@ -280,6 +280,26 @@ and use that module:
 
   ...
 
+=head2 Dynamically Creating Constants 
+
+You may also import a predefined hash of constants for exporting dynamically:
+
+ use Const::Exporter;
+  
+ my %myconstants = (
+        'foo'  => 1,
+        '$bar' => 2,
+        '@baz' => [qw/ a b c /],
+        '%bo'  => { a => 1 },
+ );
+  
+ # ... do stuff
+   
+ Const::Exporter->import(
+      constants => [%myconstants],        # define constants for exporting
+      default   => [ keys %myconstants ], # export everything in %myconstants by default
+ );
+  
 =head1 DESCRIPTION
 
 This module allows you to declare constants that can be exported to
