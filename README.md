@@ -344,11 +344,9 @@ feature.
 
 Robert Rothenberg <rrwo@cpan.org>
 
-# CONTRIBUTORS
+# CONTRIBUTOR
 
-- B. Estrade <estrabd@gmail.com>
-- Robert Rothenberg &lt;robrwo+github@gmail.com>
-- Robert Rothenberg <robrwo@gmail.com>
+B. Estrade <estrabd@gmail.com>
 
 # COPYRIGHT AND LICENSE
 
