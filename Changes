@@ -14,6 +14,8 @@ Revision history for Const-Exporter
 
   - Mention Const::Fast::Exporter in SEE ALSO, #13.
 
+  - Remove note about dependencies.
+
   - Reformat Changes document.
 
   [Toolchain]
