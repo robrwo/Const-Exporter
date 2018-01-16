@@ -13,7 +13,7 @@ use Carp;
 use Const::Fast;
 use Exporter ();
 use Package::Stash;
-use Ref::Util qw/ is_blessed_ref is_arrayref is_ref /;
+use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_ref /;
 
 # RECOMMEND PREREQ: Package::Stash::XS
 # RECOMMEND PREREQ: Ref::Util::XS
@@ -44,15 +44,15 @@ sub import {
         my $defs = shift;
 
         croak "An array reference required for tag '${tag}'"
-            unless is_arrayref($defs);
+          unless is_arrayref($defs);
 
         while ( my $item = shift @{$defs} ) {
 
-            for ( $item ) {
+            for ($item) {
 
                 # Array reference means a list of enumerated symbols
 
-                if (is_arrayref($_)) {
+                if ( is_arrayref($_) ) {
 
                     my @enums = @{$item};
                     my $start = shift @{$defs};
@@ -78,7 +78,7 @@ sub import {
 
                 # A scalar is a name of a symbol
 
-                if (!is_ref($_)) {
+                if ( !is_ref($_) ) {
 
                     my $symbol = $item;
                     my $sigil  = _get_sigil($symbol);
@@ -157,7 +157,8 @@ sub _add_symbol {
     }
     else {
 
-        $stash->add_symbol( '&' . $symbol, sub { $value } );
+        $stash->add_symbol( '&' . $symbol,
+            is_coderef($value) ? $value : sub { $value } );
 
     }
 }
