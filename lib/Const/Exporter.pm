@@ -37,6 +37,9 @@ sub import {
     $stash->add_symbol( '&import', \&Exporter::import )
       unless ( $stash->has_symbol('&import') );
 
+    _add_symbol( $stash, 'const', \&Const::Fast::const );
+    _export_symbol( $stash, 'const' );
+
     while ( my $tag = shift ) {
 
         croak "'${tag}' is reserved" if $tag eq 'all';
@@ -171,6 +174,8 @@ sub _export_symbol {
     my $export_ok   = $stash->get_symbol('@EXPORT_OK');
     my $export_tags = $stash->get_symbol('%EXPORT_TAGS');
 
+    $tag //= 'all';
+
     $export_tags->{$tag} //= [];
 
     push @{ $export_tags->{$tag} }, $symbol;
@@ -221,8 +226,6 @@ sub _uniq {
 Define a constants module:
 
   package MyApp::Constants;
-
-  use Const::Fast;
 
   our $zoo => 1234;
 
