@@ -13,7 +13,7 @@ use Carp;
 use Const::Fast;
 use Exporter ();
 use Package::Stash;
-use Ref::Util qw/ is_blessed_ref is_plain_arrayref is_ref /;
+use Ref::Util qw/ is_blessed_ref is_arrayref is_ref /;
 
 # RECOMMEND PREREQ: Package::Stash::XS
 # RECOMMEND PREREQ: Ref::Util::XS
@@ -44,7 +44,7 @@ sub import {
         my $defs = shift;
 
         croak "An array reference required for tag '${tag}'"
-            unless is_plain_arrayref($defs);
+            unless is_arrayref($defs);
 
         while ( my $item = shift @{$defs} ) {
 
@@ -52,7 +52,7 @@ sub import {
 
                 # Array reference means a list of enumerated symbols
 
-                if (is_plain_arrayref($_)) {
+                if (is_arrayref($_)) {
 
                     my @enums = @{$item};
                     my $start = shift @{$defs};

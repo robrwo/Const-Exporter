@@ -1,6 +1,8 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+  [Enhancements]
+  - Check for arrayrefs instead of unblessed arrayrefs.
 
 v0.3.0    2018-01-16 00:45:52+00:00 Europe/London
   [Enhancements]
