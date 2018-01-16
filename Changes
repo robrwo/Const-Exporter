@@ -1,6 +1,9 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+  [Enhancements]
+  - Switch to use Ref::Util.
+
   [Documentation]
   - Added note about dependencies.
 
