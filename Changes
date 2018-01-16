@@ -11,6 +11,8 @@ Revision history for Const-Exporter
   [Bug Fixes]
   - Remove unnecessary test dependencies.
 
+  - Add missing developer dependency for Test::Warnings.
+
 v0.3.0    2018-01-16 00:45:52+00:00 Europe/London
   [Enhancements]
   - Switch to use Ref::Util.
