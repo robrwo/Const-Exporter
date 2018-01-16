@@ -291,14 +291,6 @@ There are workarounds that you can use, such as getting
 etc. separately, but these are not supported and changes in the
 future my break our code.
 
-## A Note about Dependencies
-
-Most of the dependencies of [Const::Exporter](https://metacpan.org/pod/Const::Exporter) are core modules.
-
-[Package::Stash](https://metacpan.org/pod/Package::Stash) is used by [DBIx::Class](https://metacpan.org/pod/DBIx::Class), [Moose](https://metacpan.org/pod/Moose) and
-[namespace::clean](https://metacpan.org/pod/namespace::clean). Those modules are used by many Modern Perl
-modules and applications.
-
 # SEE ALSO
 
 See [Exporter](https://metacpan.org/pod/Exporter) for a discussion of export tags.
