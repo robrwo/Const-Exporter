@@ -13,8 +13,8 @@ Revision history for Const-Exporter
 
   - Reformat Changes document.
 
-  [Other Changes]
-  - Explicit prereq for Test::Differences for some CPAN Testers
+  [Toolchain]
+  - Update distribution to use Dist::Zilla and POD::Weaver.
 
 v0.2.4  2015-01-08
   - No functional changes.
