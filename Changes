@@ -7,6 +7,8 @@ Revision history for Const-Exporter
   [Tests]
   - Remove unnecessary compilation test.
 
+  - Add tests for const export.
+
 v0.3.1    2018-01-16 23:41:07+00:00 Europe/London
   [Enhancements]
   - Check for arrayrefs instead of unblessed arrayrefs.
