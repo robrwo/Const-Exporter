@@ -22,7 +22,10 @@ use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_ref /;
 sub import {
     my $pkg = shift;
 
-    my ($caller) = caller;
+    strict->import;
+    warnings->import;
+
+    my $caller = caller;
     my $stash = Package::Stash->new($caller);
 
     # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
@@ -136,6 +139,7 @@ sub import {
     push @{ $export_tags->{all} }, @{$export_ok};
 
     _uniq( $export_tags->{$_} ) for keys %{$export_tags};
+
 }
 
 # Add a symbol to the stash

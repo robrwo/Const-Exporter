@@ -1,6 +1,9 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+  [Enhancements]
+  - Enable strictures.
+
   [Tests]
   - Remove unnecessary compilation test.
 
