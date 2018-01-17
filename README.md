@@ -279,6 +279,13 @@ The `:all` tag exports all symbols.
 
 # KNOWN ISSUES
 
+## Support for older Perl versions
+
+This module requires Perl v5.10 or newer.
+
+Pull requests to support older versions of Perl are welcome. See
+["SOURCE"](#source).
+
 ## Exporting Functions
 
 [Const::Exporter](https://metacpan.org/pod/Const::Exporter) is not intended for use with modules that also

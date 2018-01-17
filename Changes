@@ -4,6 +4,9 @@ Revision history for Const-Exporter
   [Enhancements]
   - Enable strictures.
 
+  [Documentation]
+  - Added note about support for older Perl versions.
+
   [Tests]
   - Remove unnecessary compilation test.
 

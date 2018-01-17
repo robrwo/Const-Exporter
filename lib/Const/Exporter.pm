@@ -472,6 +472,13 @@ The C<:all> tag exports all symbols.
 
 =head1 KNOWN ISSUES
 
+=head2 Support for older Perl versions
+
+This module requires Perl v5.10 or newer.
+
+Pull requests to support older versions of Perl are welcome. See
+L</SOURCE>.
+
 =head2 Exporting Functions
 
 L<Const::Exporter> is not intended for use with modules that also
