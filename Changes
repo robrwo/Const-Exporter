@@ -4,6 +4,8 @@ Revision history for Const-Exporter
   [Enhancements]
   - Enable strictures.
 
+  - Use is_ref to check for a reference in enums.
+
   [Documentation]
   - Added note about support for older Perl versions.
 
