@@ -1,6 +1,8 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+  [Tests]
+  - Remove unnecessary compilation test.
 
 v0.3.1    2018-01-16 23:41:07+00:00 Europe/London
   [Enhancements]
