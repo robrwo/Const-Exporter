@@ -16,3 +16,7 @@ MYMETA.*
 inc/*
 
 Const-Exporter-v*/*
+
+.build/
+
+cpanfile.snapshot
