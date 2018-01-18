@@ -14,7 +14,7 @@ use Const::Fast;
 use Exporter ();
 use List::AllUtils '0.10' => qw/ pairs zip /;
 use Package::Stash;
-use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_ref /;
+use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_hashref is_ref /;
 
 # RECOMMEND PREREQ: Package::Stash::XS
 # RECOMMEND PREREQ: Ref::Util::XS
@@ -44,7 +44,7 @@ sub import {
     _add_symbol( $stash, 'const', \&Const::Fast::const );
     _export_symbol( $stash, 'const' );
 
-    foreach my $set (pairs @_) {
+    foreach my $set ( pairs @_ ) {
 
         my $tag = $set->key;
         croak "'${tag}' is reserved" if $tag eq 'all';
@@ -150,6 +150,15 @@ sub import {
 
 # Add a symbol to the stash
 
+sub _check_sigil_against_value {
+    my ($sigil, $value) = @_;
+
+    return 0 if $sigil eq '@' && !is_arrayref($value);
+    return 0 if $sigil eq '%' && !is_hashref($value);
+
+    return 1;
+}
+
 sub _add_symbol {
     my ( $stash, $symbol, $value ) = @_;
 
@@ -163,6 +172,10 @@ sub _add_symbol {
 
         }
         else {
+
+            croak "Invalid type for $symbol"
+                unless _check_sigil_against_value($sigil, $value);
+
             $stash->add_symbol( $symbol, $value );
             Const::Fast::_make_readonly( $stash->get_symbol($symbol) => 1 );
         }

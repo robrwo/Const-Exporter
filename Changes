@@ -7,6 +7,8 @@ Revision history for Const-Exporter
   - Simplified the enum generation code, and added the ability to
     specify a custom incrementing function.
 
+  - Check values against types.
+
   - Miscellaneous improvements to the import method.
 
   [Documentation]
