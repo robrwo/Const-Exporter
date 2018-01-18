@@ -63,7 +63,7 @@ sub import {
                     my @enums = @{$item};
                     my $start = shift @{$defs};
 
-                    my @values = is_ref($start) ? @{$start} : ($start);
+                    my @values = is_arrayref($start) ? @{$start} : ($start);
 
                     my $value = 0;
 
