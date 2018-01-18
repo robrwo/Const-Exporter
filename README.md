@@ -4,7 +4,7 @@ Const::Exporter - Declare constants for export.
 
 # VERSION
 
-version v0.3.2
+version v0.4.0
 
 # SYNOPSIS
 
