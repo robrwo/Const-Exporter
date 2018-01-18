@@ -201,22 +201,6 @@ sub _get_sigil {
     return $1 // '&';
 }
 
-# Function to convert a sigil into the corresponding reftype.
-
-{
-    const my %_reftype => (
-        '$' => 'SCALAR',
-        '&' => 'CODE',
-        '@' => 'ARRAY',
-        '%' => 'HASH',
-    );
-
-    sub _get_reftype {
-        my ($sigil) = @_;
-        return $_reftype{$sigil};
-    }
-}
-
 # Function to take a list reference and prune duplicate elements from
 # it.
 
