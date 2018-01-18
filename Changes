@@ -6,6 +6,9 @@ Revision history for Const-Exporter
 
   - Use is_arrayref to check for a reference in enums.
 
+  - Simplified the enum generation code, and added the ability to
+    specify a custom incrementing function.
+
   [Documentation]
   - Added note about support for older Perl versions.
 
@@ -13,6 +16,8 @@ Revision history for Const-Exporter
   - Remove unnecessary compilation test.
 
   - Add tests for const export.
+
+  - Added better tests for enums.
 
 v0.3.1    2018-01-16 23:41:07+00:00 Europe/London
   [Enhancements]

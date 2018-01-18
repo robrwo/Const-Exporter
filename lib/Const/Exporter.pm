@@ -12,6 +12,7 @@ our $VERSION = 'v0.3.2';
 use Carp;
 use Const::Fast;
 use Exporter ();
+use List::AllUtils qw/ pairs zip /;
 use Package::Stash;
 use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_ref /;
 
@@ -26,7 +27,7 @@ sub import {
     warnings->import;
 
     my $caller = caller;
-    my $stash = Package::Stash->new($caller);
+    my $stash  = Package::Stash->new($caller);
 
     # Create @EXPORT, @EXPORT_OK, %EXPORT_TAGS and import if they
     # don't yet exist.
@@ -65,14 +66,18 @@ sub import {
 
                     my @values = is_arrayref($start) ? @{$start} : ($start);
 
-                    my $value = 0;
+                    my $last = $values[0] // 0;
+                    my $fn = sub { $_[0] + 1 };
 
-                    while ( my $symbol = shift @enums ) {
+                    if ( is_coderef $values[1] ) {
+                        $fn = $values[1];
+                        $values[1] = undef;
+                    }
 
-                        croak "${symbol} already exists"
-                          if ( $stash->has_symbol($symbol) );
-
-                        $value = @values ? ( shift @values ) : ++$value;
+                    foreach my $pair ( pairs zip @enums, @values ) {
+                        my $value = $pair->value // $fn->($last);
+                        $last = $value;
+                        my $symbol = $pair->key // next;
 
                         _add_symbol( $stash, $symbol, $value );
                         _export_symbol( $stash, $symbol, $tag );
