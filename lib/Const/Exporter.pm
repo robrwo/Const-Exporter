@@ -12,7 +12,7 @@ our $VERSION = 'v0.3.2';
 use Carp;
 use Const::Fast;
 use Exporter ();
-use List::AllUtils qw/ pairs zip /;
+use List::AllUtils '0.10' => qw/ pairs zip /;
 use Package::Stash;
 use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_ref /;
 
