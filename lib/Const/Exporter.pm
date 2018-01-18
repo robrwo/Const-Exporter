@@ -44,11 +44,12 @@ sub import {
     _add_symbol( $stash, 'const', \&Const::Fast::const );
     _export_symbol( $stash, 'const' );
 
-    while ( my $tag = shift ) {
+    foreach my $set (pairs @_) {
 
+        my $tag = $set->key;
         croak "'${tag}' is reserved" if $tag eq 'all';
 
-        my $defs = shift;
+        my $defs = $set->value;
 
         croak "An array reference required for tag '${tag}'"
           unless is_arrayref($defs);

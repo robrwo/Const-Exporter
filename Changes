@@ -7,6 +7,8 @@ Revision history for Const-Exporter
   - Simplified the enum generation code, and added the ability to
     specify a custom incrementing function.
 
+  - Miscellaneous improvements to the import method.
+
   [Documentation]
   - Added note about support for older Perl versions.
 
