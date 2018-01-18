@@ -4,8 +4,6 @@ Revision history for Const-Exporter
   [Enhancements]
   - Enable strictures.
 
-  - Use is_arrayref to check for a reference in enums.
-
   - Simplified the enum generation code, and added the ability to
     specify a custom incrementing function.
 
