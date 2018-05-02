@@ -21,6 +21,9 @@ Revision history for Const-Exporter
 
   - Added better tests for enums.
 
+  [Toolchain]
+  - Remove core and redundant prerequisites.
+
 v0.3.1    2018-01-16 23:41:07+00:00 Europe/London
   [Enhancements]
   - Check for arrayrefs instead of unblessed arrayrefs.

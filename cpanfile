@@ -1,15 +1,10 @@
-requires "Carp" => "0";
 requires "Const::Fast" => "0";
-requires "Exporter" => "0";
 requires "List::AllUtils" => "0.10";
 requires "Package::Stash" => "0";
 requires "Ref::Util" => "0";
 requires "perl" => "v5.10.0";
-requires "strict" => "0";
-requires "warnings" => "0";
 recommends "Package::Stash::XS" => "0";
 recommends "Ref::Util::XS" => "0";
-recommends "Storable" => "0";
 
 on 'test' => sub {
   requires "File::Spec" => "0";
