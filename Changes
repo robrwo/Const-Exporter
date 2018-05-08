@@ -1,6 +1,8 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+  [Bug Fixes]
+  - Use local variable for regex capture.
 
 v0.4.0    2018-05-02 20:42:40+01:00 Europe/London
   [Enhancements]

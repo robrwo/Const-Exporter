@@ -210,8 +210,8 @@ sub _export_symbol {
 
 sub _get_sigil {
     my ($symbol) = @_;
-    $symbol =~ /^(\W)/;
-    return $1 // '&';
+    my ($sigil) = $symbol =~ /^(\W)/;
+    return $sigil // '&';
 }
 
 # Function to take a list reference and prune duplicate elements from
