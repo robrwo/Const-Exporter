@@ -153,10 +153,12 @@ sub import {
 sub _check_sigil_against_value {
     my ($sigil, $value) = @_;
 
-    return 0 if $sigil eq '@' && !is_arrayref($value);
-    return 0 if $sigil eq '%' && !is_hashref($value);
+    return 1 if $sigil eq '@' && is_arrayref($value);
+    return 1 if $sigil eq '%' && is_hashref($value);
+    return 1 if $sigil eq '&' && is_coderef($value);
+    return 1 if $sigil eq '$';
 
-    return 1;
+    return 0;
 }
 
 sub _add_symbol {

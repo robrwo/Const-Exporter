@@ -4,6 +4,9 @@ Revision history for Const-Exporter
   [Bug Fixes]
   - Use local variable for regex capture.
 
+  [Enhancements]
+  - Improve type checking.
+
 v0.4.0    2018-05-02 20:42:40+01:00 Europe/London
   [Enhancements]
   - Enable strictures.
