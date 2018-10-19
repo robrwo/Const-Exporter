@@ -1,6 +1,9 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+  [Documentation]
+  - Added INSTALL file to the distribution.
+
   [Toolchain]
   - Added keywords to distribution metadata.
 
