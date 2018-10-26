@@ -48,7 +48,7 @@
 # Author Extras
 ^inc/.*\.pod$
 ^pkg/
-^xt/
+# ^xt/
 # ^dist.ini$
 
 # Editors
@@ -105,4 +105,5 @@
 \.build/
 Const-Exporter-.*/
 Const-Exporter-.*\.tar\.gz
+\.mailmap$
 cpanfile\.snapshot$
