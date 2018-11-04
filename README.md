@@ -343,7 +343,7 @@ Robert Rothenberg <rrwo@cpan.org>
 
 # CONTRIBUTOR
 
-B. Estrade <estrabd@gmail.com>
+B. Estrade <estrabd@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
