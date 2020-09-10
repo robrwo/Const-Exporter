@@ -11,6 +11,8 @@ Revision history for Const-Exporter
 
   - Tweaks to dist.ini for simplifying build.
 
+  - Include core modules in prerequisites.
+
 v0.4.1    2018-05-08 16:14:23+01:00 Europe/London
   [Bug Fixes]
   - Use local variable for regex capture.
