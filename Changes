@@ -1,6 +1,8 @@
 Revision history for Const-Exporter
 
 {{$NEXT}}
+
+v0.4.2    2020-09-10 12:52:53+01:00 Europe/London
   [Documentation]
   - Added INSTALL file to the distribution.
 
