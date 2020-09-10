@@ -106,4 +106,7 @@
 Const-Exporter-.*/
 Const-Exporter-.*\.tar\.gz
 \.mailmap$
+perltidy\.(LOG|ERR)
+fatlib/
 cpanfile\.snapshot$
+local/
