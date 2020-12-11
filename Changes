@@ -1,6 +1,7 @@
-Revision history for Const-Exporter
+Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  - No changes: version bumped because module is considered mature.
 
 v0.4.2    2020-09-10 12:52:53+01:00 Europe/London
   [Documentation]
