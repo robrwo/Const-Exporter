@@ -1,6 +1,10 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Documentation]
+  - Reorganised POD so that a the an issue with intermixed POD is
+    properly in the KNOWN ISSUES section.
+
 
 v1.1.1    2020-12-17 15:51:58+00:00 Europe/London
   [Tests]
