@@ -16,6 +16,7 @@ use List::AllUtils '0.10' => qw/ pairs zip /;
 use Package::Stash;
 use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_hashref is_ref /;
 
+# RECOMMEND PREREQ: List::SomeUtils::XS
 # RECOMMEND PREREQ: Package::Stash::XS
 # RECOMMEND PREREQ: Ref::Util::XS
 # RECOMMEND PREREQ: Storable

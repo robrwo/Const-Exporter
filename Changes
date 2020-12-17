@@ -5,6 +5,8 @@
   - Reorganised POD so that a the an issue with intermixed POD is
     properly in the KNOWN ISSUES section.
 
+  [Other]
+  - Add List::SomeUtils::XS to recommended prereqs.
 
 v1.1.1    2020-12-17 15:51:58+00:00 Europe/London
   [Tests]
