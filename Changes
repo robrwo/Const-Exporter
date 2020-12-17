@@ -1,6 +1,8 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+
+v1.1.1    2020-12-17 15:51:58+00:00 Europe/London
   [Tests]
   - Specify minimum version of Sub::Identify.
 
