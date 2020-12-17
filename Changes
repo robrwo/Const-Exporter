@@ -1,6 +1,9 @@
-Revision history for {{ $dist->name }}
+#Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Enhancements]
+  - Subroutine constants are genuinely marked as subroutine constants.
+
   [Toolchain]
   - Removed `.travis.yml` from git repo.
 
