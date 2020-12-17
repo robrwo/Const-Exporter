@@ -1,7 +1,7 @@
 use Test::Most;
 use if $ENV{RELEASE_TESTING}, 'Test::Warnings';
 
-use Sub::Identify qw/ is_sub_constant /;
+use Sub::Identify 0.06 qw/ is_sub_constant /;
 
 use Const::Exporter default => [ A => 1, B => sub { 2 } ];
 
