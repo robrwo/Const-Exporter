@@ -5,6 +5,8 @@
   - Reorganised POD so that a the an issue with intermixed POD is
     properly in the KNOWN ISSUES section.
 
+  - Bumped copyright year.
+
   [Other]
   - Add List::SomeUtils::XS to recommended prereqs.
 
