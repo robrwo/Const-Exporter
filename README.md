@@ -341,9 +341,10 @@ feature.
 
 Robert Rothenberg <rrwo@cpan.org>
 
-# CONTRIBUTOR
+# CONTRIBUTORS
 
-B. Estrade <estrabd@cpan.org>
+- Slaven Rezić <slaven@rezic.de>
+- B. Estrade <estrabd@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
