@@ -1,6 +1,8 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+
+v1.2.0    2021-04-19 16:29:19+01:00 Europe/London
   [Bug Fixes]
   - Fix issue with newer versions of List::Util, fixes GH#15.
 
