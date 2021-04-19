@@ -12,7 +12,7 @@ our $VERSION = 'v1.2.0';
 use Carp;
 use Const::Fast;
 use Exporter ();
-use List::AllUtils '0.10' => qw/ pairs zip /;
+use List::Util '1.56' => qw/ pairs mesh /;
 use Package::Stash;
 use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_hashref is_ref /;
 
@@ -76,7 +76,7 @@ sub import {
                         $values[1] = undef;
                     }
 
-                    foreach my $pair ( pairs zip @enums, @values ) {
+                    foreach my $pair ( pairs mesh \@enums, \@values ) {
                         my $value = $pair->value // $fn->($last);
                         $last = $value;
                         my $symbol = $pair->key // next;
