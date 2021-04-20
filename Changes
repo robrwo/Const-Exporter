@@ -1,13 +1,15 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Documentation]
+  - Fixed typos in Changes.
 
 v1.2.0    2021-04-19 16:29:19+01:00 Europe/London
   [Bug Fixes]
-  - Fix issue with newer versions of List::Util, fixes GH#15.
+  - Fixed issue with newer versions of List::Util, fixes GH#15.
 
   [Enhancements]
-  - Removed prerequisit of List::AllUtils.
+  - Removed prerequisite of List::AllUtils.
 
 v1.1.2    2021-03-13 12:17:00+00:00 Europe/London
   [Documentation]
