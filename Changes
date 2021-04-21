@@ -4,6 +4,9 @@
   [Documentation]
   - Fixed typos in Changes.
 
+  [Tests]
+  - Add author test for unused vars.
+
 v1.2.0    2021-04-19 16:29:19+01:00 Europe/London
   [Bug Fixes]
   - Fixed issue with newer versions of List::Util, fixes GH#15.
