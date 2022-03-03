@@ -7,6 +7,8 @@
   [Other]
   - Fix issue with MANIFEST.SKIP.
 
+  - Specify minimum version of Exporter.
+
 v1.2.1    2021-09-22 16:32:07+01:00 Europe/London
   [Documentation]
   - Fixed typos in Changes.

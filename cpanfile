@@ -3,7 +3,7 @@
 
 requires "Carp" => "0";
 requires "Const::Fast" => "0";
-requires "Exporter" => "0";
+requires "Exporter" => "5.57";
 requires "List::Util" => "1.56";
 requires "Package::Stash" => "0";
 requires "Ref::Util" => "0";

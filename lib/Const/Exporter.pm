@@ -11,7 +11,7 @@ our $VERSION = 'v1.2.2';
 
 use Carp;
 use Const::Fast;
-use Exporter ();
+use Exporter 5.57 ();
 use List::Util '1.56' => qw/ pairs mesh /;
 use Package::Stash;
 use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_hashref is_ref /;
