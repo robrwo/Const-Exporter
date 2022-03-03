@@ -1,6 +1,9 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Documentation]
+  - Fix encoding of links in README.
+
   [Other]
   - Fix issue with MANIFEST.SKIP.
 
