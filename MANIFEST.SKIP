@@ -108,5 +108,6 @@ Const-Exporter-.*\.tar\.gz
 \.mailmap$
 perltidy\.(LOG|ERR)
 fatlib/
+^\.mite$
 cpanfile\.snapshot$
 local/
