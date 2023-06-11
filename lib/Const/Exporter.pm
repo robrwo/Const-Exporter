@@ -497,6 +497,12 @@ e.g.
 
 =for readme continue
 
+=head1 SUPPORT FOR OLDER PERL VERSIONS
+
+This module requires Perl v5.10.1 or later.
+
+Future releases may only support Perl versions released in the last ten years.
+
 =head1 SEE ALSO
 
 See L<Exporter> for a discussion of export tags.
