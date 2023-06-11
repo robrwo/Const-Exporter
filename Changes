@@ -1,6 +1,8 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Documentation]
+  - Bumped copyright year.
 
 v1.2.2    2022-09-03 09:27:39+01:00 Europe/London
   [Documentation]
