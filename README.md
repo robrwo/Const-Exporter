@@ -296,6 +296,12 @@ use Const::Exporter
   b => [ bar => 2 ];
 ```
 
+# SUPPORT FOR OLDER PERL VERSIONS
+
+This module requires Perl v5.10.1 or later.
+
+Future releases may only support Perl versions released in the last ten years.
+
 # SEE ALSO
 
 See [Exporter](https://metacpan.org/pod/Exporter) for a discussion of export tags.
