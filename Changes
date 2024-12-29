@@ -10,7 +10,7 @@
   - Added security policy.
 
   [Tests]
-  - Improve author tests.
+  - Added and improved author tests.
 
   [Other]
   - Removed generation of MANIFEST.SKIP from builder.

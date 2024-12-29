@@ -10,14 +10,14 @@ our $VERSION = 'v1.2.4';
 use Carp;
 use Const::Fast;
 use Exporter 5.57 ();
-use List::Util '1.56' => qw/ pairs mesh /;
+use List::Util 1.56 qw/ pairs mesh /;
 use Package::Stash;
 use Ref::Util qw/ is_blessed_ref is_arrayref is_coderef is_hashref is_ref /;
 
 # RECOMMEND PREREQ: List::SomeUtils::XS
 # RECOMMEND PREREQ: Package::Stash::XS
 # RECOMMEND PREREQ: Ref::Util::XS
-# RECOMMEND PREREQ: Storable
+# RECOMMEND PREREQ: Storable 3.05
 
 sub import {
     my $pkg = shift;
