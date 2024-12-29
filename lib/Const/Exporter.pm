@@ -5,7 +5,7 @@ package Const::Exporter;
 use v5.14;
 use warnings;
 
-our $VERSION = 'v1.3.0';
+our $VERSION = 'v1.3.1';
 
 use Carp;
 use Const::Fast;
