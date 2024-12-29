@@ -241,7 +241,7 @@ The `:all` tag exports all symbols.
 
 ## Support for older Perl versions
 
-This module requires Perl v5.10 or newer.
+This module requires Perl v5.14 or newer.
 
 Pull requests to support older versions of Perl are welcome. See
 ["SOURCE"](#source).

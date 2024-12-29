@@ -7,8 +7,7 @@ requires "Exporter" => "5.57";
 requires "List::Util" => "1.56";
 requires "Package::Stash" => "0";
 requires "Ref::Util" => "0";
-requires "perl" => "v5.10.0";
-requires "strict" => "0";
+requires "perl" => "v5.14.0";
 requires "warnings" => "0";
 recommends "List::SomeUtils::XS" => "0";
 recommends "Package::Stash::XS" => "0";
@@ -24,6 +23,7 @@ on 'test' => sub {
   requires "Test::Most" => "0";
   requires "if" => "0";
   requires "lib" => "0";
+  requires "strict" => "0";
 };
 
 on 'test' => sub {

@@ -1,6 +1,9 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Incompatabilities]
+  - The minimum Perl version is now v5.14.
+
   [Documentation]
   - Bumped copyright year.
 

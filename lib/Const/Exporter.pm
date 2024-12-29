@@ -2,9 +2,7 @@ package Const::Exporter;
 
 # ABSTRACT: Declare constants for export.
 
-use v5.10.0;
-
-use strict;
+use v5.14;
 use warnings;
 
 our $VERSION = 'v1.2.4';
@@ -444,7 +442,7 @@ The C<:all> tag exports all symbols.
 
 =head2 Support for older Perl versions
 
-This module requires Perl v5.10 or newer.
+This module requires Perl v5.14 or newer.
 
 Pull requests to support older versions of Perl are welcome. See
 L</SOURCE>.
