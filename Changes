@@ -9,6 +9,9 @@
 
   - Added security policy.
 
+  [Other]
+  - Removed generation of MANIFEST.SKIP from builder.
+
 v1.2.3    2023-06-11 11:01:22+01:00 Europe/London
   [Documentation]
   - Document support policy for older Perl versions.
