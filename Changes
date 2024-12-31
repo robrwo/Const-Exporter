@@ -1,6 +1,8 @@
 #Revision history for {{ $dist->name }}
 
 {{$NEXT}}
+  [Documentation]
+  - Updated security policy to link to git repo.
 
 v1.3.0    2024-12-29 17:12:00+00:00 Europe/London
   [Incompatabilities]

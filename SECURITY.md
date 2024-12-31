@@ -1,11 +1,11 @@
 This is the Security Policy for the Perl distribution Const-Exporter.
 
-The latest version of this Security Policy can be found on
-[MetaCPAN](https://metacpan.org/dist/Const-Exporter).
+The latest version of this Security Policy can be found in the Git repository
+[https://github.com/robrwo/Const-Exporter](https://github.com/robrwo/Const-Exporter).
 
 This text is based on the CPAN Security Group's
 [Guidelines for Adding a Security Policy to Perl Distributions](https://security.metacpan.org/docs/guides/security-policy-for-authors.html)
-(version 0.1.8).
+(version 0.1.9).
 
 
 # How to Report a Security Vulnerability
